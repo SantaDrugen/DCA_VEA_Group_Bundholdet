@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5D600B35
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAssociation.Core.Tools.OperationResult", "src\Core\Tools\EventAssociation.Core.Tools.OperationResult\EventAssociation.Core.Tools.OperationResult.csproj", "{FBC26E72-6828-4DBD-92D8-F4C43CD72C19}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FA2D8EC6-71B6-4B58-A556-37E7C23E2BA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
