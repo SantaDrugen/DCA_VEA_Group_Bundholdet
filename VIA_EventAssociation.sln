@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\DomainModel_Aneimic.drawio.svg = Documentation\DomainModel_Aneimic.drawio.svg
 		Documentation\GroupMembers.md = Documentation\GroupMembers.md
 		Documentation\ReadMe.md = Documentation\ReadMe.md
+		Documentation\Missing.md = Documentation\Missing.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6175952B-0BE9-4080-A47B-03A9E120B137}"
