@@ -2,10 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E7F392A5-B026-4065-934F-1849C5D07040}"
 	ProjectSection(SolutionItems) = preProject
-		Documentation\Concrete Domain Model.drawio = Documentation\Concrete Domain Model.drawio
-		Documentation\Concrete Domain Model.drawio.svg = Documentation\Concrete Domain Model.drawio.svg
-		Documentation\DomainModel_Aneimic.drawio = Documentation\DomainModel_Aneimic.drawio
-		Documentation\DomainModel_Aneimic.drawio.svg = Documentation\DomainModel_Aneimic.drawio.svg
 		Documentation\GroupMembers.md = Documentation\GroupMembers.md
 		Documentation\ReadMe.md = Documentation\ReadMe.md
 		Documentation\Missing.md = Documentation\Missing.md
@@ -23,6 +19,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FA2D8EC6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Tests\UnitTests\UnitTests.csproj", "{0B67FAE9-CEDF-41A0-9941-CCA8FFFF86C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment1", "Assignment1", "{E690EFD1-1E06-4F51-B354-1375C7BEE1DA}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\DomainModel_Aneimic.drawio = Documentation\DomainModel_Aneimic.drawio
+		Documentation\DomainModel_Aneimic.drawio.svg = Documentation\DomainModel_Aneimic.drawio.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment2", "Assignment2", "{B5863F55-0030-4BA3-BDA7-BAA90A9AE0F5}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Concrete Domain Model.drawio = Documentation\Concrete Domain Model.drawio
+		Documentation\Concrete Domain Model.drawio.svg = Documentation\Concrete Domain Model.drawio.svg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,8 @@ Global
 		{5D600B35-8243-4DCB-9613-38B3BD06727A} = {18D14F9D-11C1-4F44-B185-8ABF8F25A33A}
 		{FBC26E72-6828-4DBD-92D8-F4C43CD72C19} = {5D600B35-8243-4DCB-9613-38B3BD06727A}
 		{0B67FAE9-CEDF-41A0-9941-CCA8FFFF86C8} = {FA2D8EC6-71B6-4B58-A556-37E7C23E2BA4}
+		{E690EFD1-1E06-4F51-B354-1375C7BEE1DA} = {E7F392A5-B026-4065-934F-1849C5D07040}
+		{B5863F55-0030-4BA3-BDA7-BAA90A9AE0F5} = {E7F392A5-B026-4065-934F-1849C5D07040}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FBC26E72-6828-4DBD-92D8-F4C43CD72C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
