@@ -1,6 +1,0 @@
-@DCA_VEA_Group_Bundholdet_HostAddress = http://localhost:5223
-
-GET {{DCA_VEA_Group_Bundholdet_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
