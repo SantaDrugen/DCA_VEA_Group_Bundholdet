@@ -23,12 +23,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment1", "Assignment1"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\DomainModel_Aneimic.drawio = Documentation\DomainModel_Aneimic.drawio
 		Documentation\DomainModel_Aneimic.drawio.svg = Documentation\DomainModel_Aneimic.drawio.svg
+		Documentation\Assignment1\NewFile1.txt = Documentation\Assignment1\NewFile1.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment2", "Assignment2", "{B5863F55-0030-4BA3-BDA7-BAA90A9AE0F5}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Concrete Domain Model.drawio = Documentation\Concrete Domain Model.drawio
 		Documentation\Concrete Domain Model.drawio.svg = Documentation\Concrete Domain Model.drawio.svg
+		Documentation\Assignment2\NewFile1.txt = Documentation\Assignment2\NewFile1.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment4", "Assignment4", "{0E74300A-D7F4-4F39-9667-DDA0FE1A4AD9}"
