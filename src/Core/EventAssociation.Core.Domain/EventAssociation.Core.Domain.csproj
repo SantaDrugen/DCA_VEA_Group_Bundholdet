@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Tools\EventAssociation.Core.Tools.OperationResult\EventAssociation.Core.Tools.OperationResult.csproj" />
+    </ItemGroup>
+
 </Project>
