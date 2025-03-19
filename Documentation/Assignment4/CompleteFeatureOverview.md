@@ -13,13 +13,13 @@
   
   
 
-* [ ] Use Case 2 (ID: 2 – The creator updates the title of an existing event)  
-- - [ ] S1  
-- - [ ] S2  
-- - [ ] F1  
-- - [ ] F2
-- - [ ] F3  
-- - [ ] F4  
-- - [ ] F5  
-- - [ ] F6  
-- - [ ] Tests  
+* [X] Use Case 2 (ID: 2 – The creator updates the title of an existing event)  
+- - [X] S1  
+- - [X] S2  
+- - [X] F1  
+- - [X] F2
+- - [X] F3  
+- - [X] F4  
+- - [X] F5  
+- - [X] F6  
+- - [X] Tests  

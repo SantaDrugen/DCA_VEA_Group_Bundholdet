@@ -1,4 +1,6 @@
-﻿namespace EventAssociation.Core.Domain.Common.Values.Event
+﻿using EventAssociation.Core.Tools.OperationResult;
+
+namespace EventAssociation.Core.Domain.Common.Values.Event
 {
     internal class EventStatus : Enumeration
     {
@@ -6,9 +8,24 @@
         public static EventStatus Created = new EventStatus(1, "Created");
         public static EventStatus Ready = new EventStatus(2, "Ready");
         public static EventStatus Active = new EventStatus(3, "Active");
+        public static EventStatus Cancelled = new EventStatus(4, "Cancelled");
 
         public EventStatus(int value, string displayName) : base(value, displayName)
         {
+        }
+
+
+        public static Results<EventStatus> SetActive(EventStatus current)
+        {
+            if (current == Cancelled)
+                return Results<EventStatus>.Failure(new Error("EVENT_CANCELLED", "Cannot active a cancelled event."));
+            
+            return Results<EventStatus>.Success(Active);
+        }
+        
+        public static Results<EventStatus> SetCancelled()
+        {
+            return Results<EventStatus>.Success(EventStatus.Cancelled);
         }
     }
 }
