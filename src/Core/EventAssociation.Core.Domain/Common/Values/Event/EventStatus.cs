@@ -25,7 +25,18 @@ namespace EventAssociation.Core.Domain.Common.Values.Event
         
         public static Results<EventStatus> SetCancelled()
         {
-            return Results<EventStatus>.Success(EventStatus.Cancelled);
+            return Results<EventStatus>.Success(Cancelled);
+        }
+        
+        public static Results<EventStatus> SetReady(EventStatus current)
+        {
+            if (current == Cancelled)
+                return Results<EventStatus>.Failure(new Error("EVENT_CANCELLED", "Cannot ready a cancelled event."));
+            
+            if (current == Active)
+                return Results<EventStatus>.Failure(new Error("EVENT_ACTIVE", "Cannot ready an active event."));
+            
+            return Results<EventStatus>.Success(Ready);
         }
     }
 }

@@ -16,6 +16,7 @@
 
     <ItemGroup>
         <Using Include="Xunit"/>
+        <InternalsVisibleTo Include="UnitTests" />
     </ItemGroup>
 
     <ItemGroup>

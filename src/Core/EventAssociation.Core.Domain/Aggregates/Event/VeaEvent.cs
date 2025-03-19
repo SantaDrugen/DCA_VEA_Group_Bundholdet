@@ -27,13 +27,15 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             {
                 return Results<VeaEvent>.Failure(titleResult.Errors.ToArray());
             }
+
+            var eventDescription = EventDescription.Create("");
             
             var newEvent = new VeaEvent
             {
                 status = EventStatus.Draft,
                 title = titleResult.Value,
                 participants = new EventParticipants(maxGuests: 5),
-                description = new EventDescription(""),
+                description = eventDescription.Value,
                 visibility = EventVisibility.Private,
 
                 // Probably needed:
@@ -93,6 +95,41 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
                 status = result.Value; 
             }
             return result;
+        }
+        
+        public Results<EventStatus> SetReady()
+        {
+            // We have to evaluate the Results here, such that EventStatus is only updated if successful
+            var result = EventStatus.SetReady(status);
+            if (result.IsSuccess)
+            {
+                status = result.Value; 
+            }
+            return result;
+        }
+        
+        public Results<EventDescription> SetDescription(string newDescription)
+        {
+            var descriptionResult = EventDescription.Create(newDescription);
+            if (descriptionResult.IsFailure)
+                return descriptionResult;
+
+            if (status == EventStatus.Active)
+            {
+                return Results<EventDescription>.Failure(new Error("EVENT_ACTIVE", "An active event cannot be modified."));
+            }
+
+            if (status == EventStatus.Cancelled)
+            {
+                return Results<EventDescription>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
+            }
+            
+            description = descriptionResult.Value;
+
+            if (status == EventStatus.Ready)
+                status = EventStatus.Draft;
+
+            return Results<EventDescription>.Success(description);
         }
     }
 }
