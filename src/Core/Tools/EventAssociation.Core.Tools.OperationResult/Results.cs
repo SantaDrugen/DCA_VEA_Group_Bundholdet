@@ -2,7 +2,44 @@
 
 public class Results
 {
+    public bool IsSuccess { get; }
+    public bool IsFailure => !IsSuccess;
+    public List<Error> Errors { get; } = new();
 
+    protected Results(bool isSuccess, List<Error> errors)
+    {
+        IsSuccess = isSuccess;
+        if (errors != null)
+            Errors.AddRange(errors);
+    }
+
+    public static Results Success() => new(true, new List<Error>());
+    public static Results Failure(params Error[] errors) => new(false, errors.ToList());
+
+    public static Results Combine(params Results[] results)
+    {
+        var allErrors = results.SelectMany(r => r.Errors).ToList();
+        return allErrors.Any() ? Failure(allErrors.ToArray()) : Success();
+    }
+}
+
+public class Results<T> : Results
+{
+    public T Value { get; }
+
+    private Results(T value) : base(true, new List<Error>())
+    {
+        Value = value;
+    }
+
+    private Results(List<Error> errors) : base(false, errors)
+    {
+    }
+
+    public static Results<T> Success(T value) => new(value);
+    public static Results<T> Failure(params Error[] errors) => new(errors.ToList());
+
+    public static implicit operator Results<T>(T value) => Success(value);
 }
 
 /*
