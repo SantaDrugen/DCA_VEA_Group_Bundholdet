@@ -6,7 +6,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
     internal class VeaEvent
     {
         public EventId Id { get; }
-        internal EventTitle title { get;  set; }
+        public EventTitle title { get; private set; }
         private EventDescription description { get; set; }
         private DateTime startDateTime { get; set; }
         private DateTime endDateTime { get; set; }
