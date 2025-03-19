@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Domain.Common.Values.Event
 {
     internal class EventDescription
     {
-        private string value { get; }
+        private const int MaxLength = 250;
 
-        public EventDescription(string value)
+        public string Value { get; }
+
+        private EventDescription(string description)
         {
-            this.value = value;
+            Value = description;
+        }
+
+        public static Results<EventDescription> Create(string description)
+        {
+            if (description.Length > MaxLength)
+            {
+                return Results<EventDescription>.Failure(new Error("DESCRIPTION_TOO_LONG",
+                    "The description must be between 0 and 250 characters."));
+            }
+
+            return Results<EventDescription>.Success(new EventDescription(description));
         }
     }
 }

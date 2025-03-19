@@ -25,11 +25,11 @@
 - - [X] Tests
 
 
-* [ ] Use Case 3 (ID: 3 – The creator updates the description of an event)
-- - [ ] S1
-- - [ ] S2
-- - [ ] S3
-- - [ ] F1
-- - [ ] F2
-- - [ ] F3
-- - [ ] Tests  
+* [X] Use Case 3 (ID: 3 – The creator updates the description of an event)
+- - [X] S1
+- - [X] S2
+- - [X] S3
+- - [X] F1
+- - [X] F2
+- - [X] F3
+- - [X] Tests  
