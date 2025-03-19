@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Tools\EventAssociation.Core.Tools.OperationResult\EventAssociation.Core.Tools.OperationResult.csproj" />
+        <InternalsVisibleTo Include="UnitTests" />
     </ItemGroup>
 
 </Project>
