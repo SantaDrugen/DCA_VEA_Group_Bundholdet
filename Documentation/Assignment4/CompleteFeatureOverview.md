@@ -22,4 +22,14 @@
 - - [X] F4  
 - - [X] F5  
 - - [X] F6  
-- - [X] Tests  
+- - [X] Tests
+
+
+* [ ] Use Case 3 (ID: 3 – The creator updates the description of an event)
+- - [ ] S1
+- - [ ] S2
+- - [ ] S3
+- - [ ] F1
+- - [ ] F2
+- - [ ] F3
+- - [ ] Tests  
