@@ -25,7 +25,7 @@ namespace EventAssociation.Core.Domain.Common.Values.Event
         
         public static Results<EventStatus> SetCancelled()
         {
-            return Results<EventStatus>.Success(EventStatus.Cancelled);
+            return Results<EventStatus>.Success(Cancelled);
         }
     }
 }
