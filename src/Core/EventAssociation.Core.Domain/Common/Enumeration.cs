@@ -1,4 +1,6 @@
-﻿namespace EventAssociation.Core.Domain.Common
+﻿using System.Reflection;
+
+namespace EventAssociation.Core.Domain.Common
 {
     public abstract class Enumeration : IComparable
     {
