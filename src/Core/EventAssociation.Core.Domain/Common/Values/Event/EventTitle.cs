@@ -7,12 +7,12 @@ namespace EventAssociation.Core.Domain.Common.Values.Event
         private const int MinLength = 3;
         private const int MaxLength = 75;
         
-        public string Title { get; }
+        public string Value { get; }
 
         // This should not be public, it needs to change once Event is properly set up.
         public EventTitle(string title)
         {
-            Title = title;
+            Value = title;
         }
 
         // We check the Title.Length here, to ensure compliance with naming convention outline in Use Case 2.

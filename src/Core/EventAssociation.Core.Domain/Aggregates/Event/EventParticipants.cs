@@ -4,12 +4,12 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 {
     internal class EventParticipants
     {
-        private int maxGuests;
+        public int MaxGuests;
         private List<GuestId> participants;
 
         public EventParticipants(int maxGuests)
         {
-            this.maxGuests = maxGuests;
+            this.MaxGuests = maxGuests;
             this.participants = new List<GuestId>();
         }
     }

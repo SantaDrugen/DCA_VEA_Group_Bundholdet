@@ -4,12 +4,12 @@
 * [ ] Template Line
 
 
-* [ ] Use Case 1
-- [X] S1
-- [X] S2
-- [X] S3
-- [X] S4
-- [ ] Tests
+* [X] Use Case 1
+- - [X] S1
+- - [X] S2
+- - [X] S3
+- - [X] S4
+- - [X] Tests
   
   
 
@@ -32,4 +32,25 @@
 - - [X] F1
 - - [X] F2
 - - [X] F3
-- - [X] Tests  
+- - [X] Tests
+
+
+* [ ] Use Case 4 (ID: 4 – The creator updates the start and end time of the event)
+- - [ ] S1
+- - [ ] S2
+- - [ ] S3
+- - [ ] S4
+- - [ ] S5
+- - [ ] S5
+- - [ ] F1
+- - [ ] F2
+- - [ ] F3
+- - [ ] F4
+- - [ ] F5
+- - [ ] F6
+- - [ ] F7
+- - [ ] F8
+- - [ ] F9
+- - [ ] F10
+- - [ ] F11
+- - [ ] Tests

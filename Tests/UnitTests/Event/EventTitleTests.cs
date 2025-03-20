@@ -31,7 +31,7 @@ public class EventTitleTests
         var result = veaEvent.SetTitle("Graduation Gala");
 
         Assert.True(result.IsSuccess);
-        Assert.Equal("Graduation Gala", veaEvent.title.Title);
+        Assert.Equal("Graduation Gala", veaEvent.title.Value);
     }
 
     [Fact]
@@ -111,7 +111,7 @@ public class EventTitleTests
         var result = EventTitle.Create("Valid Title");
 
         Assert.True(result.IsSuccess);
-        Assert.Equal("Valid Title", result.Value.Title);
+        Assert.Equal("Valid Title", result.Value.Value);
     }
 
     [Fact]

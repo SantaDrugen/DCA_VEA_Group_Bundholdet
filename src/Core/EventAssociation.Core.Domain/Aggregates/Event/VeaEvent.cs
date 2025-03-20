@@ -7,17 +7,38 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
     {
         public EventId Id { get; }
         public EventTitle title { get; private set; }
-        private EventDescription description { get; set; }
-        private DateTime startDateTime { get; set; }
-        private DateTime endDateTime { get; set; }
-        private EventVisibility visibility { get; set; }
+        public EventDescription Description { get; set; }
+        public EventDateTime DateTime { get; set; }
+        private EventVisibility Visibility { get; set; }
         public EventStatus status { get; private set; }
-        private EventParticipants participants { get; set; }
-        private EventInvitations invitations { get; set; }
+        public EventParticipants Participants { get; set; }
+        private EventInvitations Invitations { get; set; }
 
         public VeaEvent()
         {
-            this.Id = new EventId();
+            Id = new EventId();
+        }
+
+        public static Results<VeaEvent> CreateNewEvent()
+        {
+            var titleResult = EventTitle.Create("Working Title");
+            if (titleResult.IsFailure)
+            {
+                return Results<VeaEvent>.Failure(titleResult.Errors.ToArray());
+            }
+            var eventDescription = EventDescription.Create("");
+
+            var newEvent = new VeaEvent
+            {
+                status = EventStatus.Draft,
+                title = titleResult.Value,
+                Participants = new EventParticipants(maxGuests: 5),
+                Description = eventDescription.Value,
+                Visibility = EventVisibility.Private,
+                // Probably needed:
+                Invitations = new EventInvitations(),
+            };
+            return Results<VeaEvent>.Success(newEvent);
         }
 
         public static Results<VeaEvent> CreateNewEvent(string eventTitle)
@@ -34,12 +55,12 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             {
                 status = EventStatus.Draft,
                 title = titleResult.Value,
-                participants = new EventParticipants(maxGuests: 5),
-                description = eventDescription.Value,
-                visibility = EventVisibility.Private,
+                Participants = new EventParticipants(maxGuests: 5),
+                Description = eventDescription.Value,
+                Visibility = EventVisibility.Private,
 
                 // Probably needed:
-                invitations = new EventInvitations(),
+                Invitations = new EventInvitations(),
 
             };
 
@@ -124,12 +145,40 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
                 return Results<EventDescription>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
             }
             
-            description = descriptionResult.Value;
+            Description = descriptionResult.Value;
 
             if (status == EventStatus.Ready)
                 status = EventStatus.Draft;
 
-            return Results<EventDescription>.Success(description);
+            return Results<EventDescription>.Success(Description);
+        }
+
+        public Results<EventDateTime> SetDateTime(DateTime startDateTime, DateTime endDateTime)
+        {
+            var dateTimeResult = EventDateTime.Create(startDateTime, endDateTime);
+            if (dateTimeResult.IsFailure)
+                return dateTimeResult;
+            if (status != EventStatus.Active)
+            {
+                return Results<EventDateTime>.Failure(new Error("EVENT_ACTIVE", "An active event cannot be modified."));
+            }
+            if (status == EventStatus.Cancelled)
+            {
+                return Results<EventDateTime>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
+            }
+            if (status == EventStatus.Active)
+            {
+                return Results<EventDateTime>.Failure(new Error("EVENT_ACTIVE", "An active event cannot be modified."));
+            }
+            if (status == EventStatus.Created)
+            {
+                return Results<EventDateTime>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
+            }
+
+            DateTime = dateTimeResult.Value;
+            if (status == EventStatus.Ready)
+                status = EventStatus.Draft;
+            return Results<EventDateTime>.Success(DateTime);
         }
     }
 }
