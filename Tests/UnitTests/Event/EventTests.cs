@@ -31,5 +31,20 @@ namespace UnitTests.Event
             Assert.Equal(EventVisibility.Public, veaEvent.Visibility);
             Assert.Equal(EventStatus.Draft, veaEvent.status);
         }
+
+        [Fact]
+        public void EventVisibilityUpdated_Success_WhenPublicEventIsSetPrivate()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+
+            // Act
+            veaEvent.SetVisibilityPrivate();
+
+            // Assert
+            Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
     }
 }

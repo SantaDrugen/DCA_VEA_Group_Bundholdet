@@ -184,5 +184,31 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             Visibility = EventVisibility.Public;
             return Results<EventVisibility>.Success(Visibility);
         }
+
+        public Results<EventVisibility> SetVisibilityPrivate()
+        {
+            var errors = new List<Error>();
+
+            if (status == EventStatus.Cancelled)
+            {
+                errors.Add(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
+            }
+
+            if (status == EventStatus.Active)
+            {
+                errors.Add(new Error("EVENT_ACTIVE", "An active event cannot be modified."));
+            }
+
+            if (errors.Any())
+            {
+                return Results<EventVisibility>.Failure(errors.ToArray());
+            }
+
+            if (status == EventStatus.Ready && Visibility != EventVisibility.Private)
+                status = EventStatus.Draft;
+
+            Visibility = EventVisibility.Private;
+            return Results<EventVisibility>.Success(Visibility);
+        }
     }
 }

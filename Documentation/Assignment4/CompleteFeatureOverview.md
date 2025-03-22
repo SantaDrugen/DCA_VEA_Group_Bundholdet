@@ -61,3 +61,12 @@
 	- [ ] S1.2 (Ready)
 	- [ ] S1.3 (Active)
 - - [ ] F1 - Blocked by Use Case 24
+
+
+* [ ] Use Case 6 (ID: 6 – The creator makes the event private)
+- - [ ] S1 - Blocked by Use Case 8
+- - [ ] S2
+	- [X] S2.1 (Draft)
+	- [ ] S2.2 (Ready)
+- - [ ] F1 - Blocked by Use Case 9
+- - [ ] F2 - Blocked by Use Case 24
