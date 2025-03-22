@@ -174,15 +174,15 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             return Results<EventDateTime>.Success(eventDateTime);
         }
 
-        public Results<EventVisibility> SetVisibility(EventVisibility visibility)
+        public Results<EventVisibility> SetVisibilityPublic()
         {
             if (status == EventStatus.Cancelled)
             {
                 return Results<EventVisibility>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
             }
 
-            Visibility = visibility;
-            return Results<EventVisibility>.Success(visibility);
+            Visibility = EventVisibility.Public;
+            return Results<EventVisibility>.Success(Visibility);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace UnitTests.Event
             var veaEvent = VeaEvent.CreateNewEvent().Value;
 
             // Act
-            veaEvent.SetVisibility(EventVisibility.Public);
+            veaEvent.SetVisibilityPublic();
 
             // Assert
             Assert.Equal(EventVisibility.Public, veaEvent.Visibility);
