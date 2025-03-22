@@ -37,20 +37,19 @@
 
 * [ ] Use Case 4 (ID: 4 – The creator updates the start and end time of the event)
 - - [X] S1
-- - [ ] S2
-- - [ ] S3
-- - [ ] S4
-- - [ ] S5
-- - [ ] S5
-- - [ ] F1
-- - [ ] F2
-- - [ ] F3
-- - [ ] F4
-- - [ ] F5
-- - [ ] F6
-- - [ ] F7
-- - [ ] F8
-- - [ ] F9
-- - [ ] F10
-- - [ ] F11
+- - [X] S2
+- - [ ] S3 - Blocked by Use Case 8
+- - [X] S4
+- - [X] S5
+- - [X] F1
+- - [X] F2
+- - [X] F3
+- - [X] F4
+- - [X] F5
+- - [X] F6
+- - [ ] F7 - Blocked by Use Case 8
+- - [ ] F8 - Blocked by Use Case 24
+- - [X] F9
+- - [X] F10
+- - [X] F11
 - - [ ] Tests

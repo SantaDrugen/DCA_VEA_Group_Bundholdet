@@ -154,15 +154,8 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             return Results<EventDescription>.Success(Description);
         }
 
-        public Results<EventDateTime> SetDateTime(DateTime startDateTime, DateTime endDateTime)
+        public Results<EventDateTime> SetDateTime(EventDateTime eventDateTime)
         {
-            var dateTimeResult = EventDateTime.Create(startDateTime, endDateTime);
-            if (dateTimeResult.IsFailure)
-                return dateTimeResult;
-            if (status != EventStatus.Active)
-            {
-                return Results<EventDateTime>.Failure(new Error("EVENT_ACTIVE", "An active event cannot be modified."));
-            }
             if (status == EventStatus.Cancelled)
             {
                 return Results<EventDateTime>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
@@ -176,10 +169,9 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
                 return Results<EventDateTime>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
             }
 
-            DateTime = dateTimeResult.Value;
             if (status == EventStatus.Ready)
                 status = EventStatus.Draft;
-            return Results<EventDateTime>.Success(DateTime);
+            return Results<EventDateTime>.Success(eventDateTime);
         }
     }
 }

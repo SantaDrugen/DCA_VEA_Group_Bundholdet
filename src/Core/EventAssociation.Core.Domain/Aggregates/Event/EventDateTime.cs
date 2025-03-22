@@ -20,32 +20,46 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
         public static Results<EventDateTime> Create(DateTime startDateTime, DateTime endDateTime)
         {
-            if (startDateTime > endDateTime) // end before start
-            {
-                return Results<EventDateTime>.Failure(new Error("INVALID_DATE_TIME",
-                    "The start date must be before the end date."));
-            }
-            else if (startDateTime.Date != endDateTime.Date) // not same day
-            {
-                return Results<EventDateTime>.Failure(new Error("INVALID_DATE_TIME",
-                    "The start and end date must be on the same day."));
-            }
-            else if ((endDateTime - startDateTime) < TimeSpan.FromHours(1)) // less than 1 hour
-            {
-                return Results<EventDateTime>.Failure(new Error("INVALID_DATE_TIME",
-                    "The event must last at least 1 hour."));
-            }
-            else if (startDateTime.Hour < 8) // start before 8
-            {
-                return Results<EventDateTime>.Failure(new Error("INVALID_DATE_TIME",
-                    "The event must start after 8:00."));
-            }
-            else if (endDateTime.Hour >= 24) // end after 24
-            {
-                return Results<EventDateTime>.Failure(new Error("INVALID_DATE_TIME",
-                    "The event must end before 24:00."));
-            }
-            return Results<EventDateTime>.Success(new EventDateTime(startDateTime, endDateTime));
+            var errors = new List<Error>();
+
+            if (startDateTime > endDateTime)
+                errors.Add(new Error("INVALID_DATE_TIME", "The start date must be before the end date."));
+
+            if (!((startDateTime.Date == endDateTime.Date) ||
+                 (endDateTime.Date == startDateTime.Date.AddDays(1) && endDateTime.TimeOfDay < TimeSpan.FromHours(1))))
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must end at the latests 00:59 the day after it starts."));
+
+            if ((endDateTime - startDateTime) < TimeSpan.FromHours(1))
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must last at least 1 hour."));
+
+            if (startDateTime.TimeOfDay < TimeSpan.FromHours(1) && endDateTime.TimeOfDay > TimeSpan.FromHours(8))
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must not span the period between 01:00 and 08:00."));
+
+            if (startDateTime.Hour < 8)
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must start after 8:00."));
+
+            if (endDateTime.Hour >= 1 && endDateTime.Hour < 8)
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must not end between 01:00 and 08:00."));
+
+            if (endDateTime.TimeOfDay - startDateTime.TimeOfDay > TimeSpan.FromHours(10))
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must last at most 10 hours."));
+
+            if (startDateTime.Date < DateTime.Now.Date)
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must start in the future."));
+
+            if (startDateTime.Date == DateTime.Now.Date && startDateTime.TimeOfDay < DateTime.Now.TimeOfDay)
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must start in the future."));
+
+            if (endDateTime.Date < DateTime.Now.Date)
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must end in the future."));
+
+            if (endDateTime.Date == DateTime.Now.Date && endDateTime.TimeOfDay < DateTime.Now.TimeOfDay)
+                errors.Add(new Error("INVALID_DATE_TIME", "The event must end in the future."));
+
+            return errors.Any()
+                ? Results<EventDateTime>.Failure(errors.ToArray())
+                : Results<EventDateTime>.Success(new EventDateTime(startDateTime, endDateTime));
         }
+
     }
 }
