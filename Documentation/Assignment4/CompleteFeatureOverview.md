@@ -70,3 +70,18 @@
 	- [ ] S2.2 (Ready)
 - - [ ] F1 - Blocked by Use Case 9
 - - [ ] F2 - Blocked by Use Case 24
+
+
+* [ ] Use Case 7 (ID: 7 – The creator sets maximum number of guests)
+- - [ ] S1
+	- [X] S1.1 (Draft)
+	- [ ] S1.2 (Ready)
+- - [ ] S2
+	- [X] S2.1 (Draft)
+	- [ ] S2.2 (Ready)
+- - [ ] S3
+- - [ ] F1 - Blocked by Use Case 9
+- - [ ] F2 - Blocked by Use Case 24
+- - [ ] F3 - blocked by Use Case 16-20
+- - [X] F4
+- - [X] F5

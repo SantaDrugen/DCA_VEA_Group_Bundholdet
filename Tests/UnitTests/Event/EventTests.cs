@@ -46,5 +46,43 @@ namespace UnitTests.Event
             Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
             Assert.Equal(EventStatus.Draft, veaEvent.status);
         }
+
+        [Fact]
+        public void EventMaxGuestsUpdated_Success_WhenStatusIsDraft()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+
+            // Act
+            veaEvent.SetMaxGuests(10);
+
+            // Assert
+            Assert.Equal(10, veaEvent.Participants.MaxGuests);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventMaxGuestsUpdated_Success_WhenCurrentStatusIsReady()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void EventMaxGuestsUpdated_Success_WhenCurrentStatusIsActive()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void EventMaxGuestsUpdated_Failure_WhenStatusIsActiveAndNewMaxGuestsIsLessThanCurrent()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void EventMaxGuestsUpdated_Failure_WhenStatusIsCancelled()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

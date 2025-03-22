@@ -2,7 +2,7 @@
 using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Domain.Aggregates.Event
-{ 
+{
     // TODO: Set to public 
     internal class VeaEvent
     {
@@ -51,7 +51,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             }
 
             var eventDescription = EventDescription.Create("");
-            
+
             var newEvent = new VeaEvent
             {
                 status = EventStatus.Draft,
@@ -67,8 +67,8 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
             return Results<VeaEvent>.Success(newEvent);
         }
-        
-        
+
+
         // Some verification is easier done here, as Event knows its own state.
         public Results<EventTitle> SetTitle(string newTitle)
         {
@@ -81,13 +81,13 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
                 Console.WriteLine("EVENT ACTIVE");
                 return Results<EventTitle>.Failure(new Error("EVENT_ACTIVE", "An active event cannot be modified."));
             }
-            
+
             if (status == EventStatus.Cancelled)
             {
                 Console.WriteLine("EVENT CANCELLED");
                 return Results<EventTitle>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
             }
-                
+
 
             title = titleResult.Value;
 
@@ -114,22 +114,22 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             var result = EventStatus.SetCancelled();
             if (result.IsSuccess)
             {
-                status = result.Value; 
+                status = result.Value;
             }
             return result;
         }
-        
+
         public Results<EventStatus> SetReady()
         {
             // We have to evaluate the Results here, such that EventStatus is only updated if successful
             var result = EventStatus.SetReady(status);
             if (result.IsSuccess)
             {
-                status = result.Value; 
+                status = result.Value;
             }
             return result;
         }
-        
+
         public Results<EventDescription> SetDescription(string newDescription)
         {
             var descriptionResult = EventDescription.Create(newDescription);
@@ -145,7 +145,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             {
                 return Results<EventDescription>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
             }
-            
+
             Description = descriptionResult.Value;
 
             if (status == EventStatus.Ready)
@@ -210,5 +210,29 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             Visibility = EventVisibility.Private;
             return Results<EventVisibility>.Success(Visibility);
         }
+
+        public Results<int> SetMaxGuests(int maxGuests)
+        {
+            var errors = new List<Error>();
+
+            if (status == EventStatus.Cancelled)
+            {
+                errors.Add(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
+            }
+
+            if (status == EventStatus.Active)
+            {
+                errors.Add(new Error("EVENT_ACTIVE", "An active event cannot be modified."));
+            }
+
+            if (errors.Any())
+            {
+                return Results<int>.Failure(errors.ToArray());
+            }
+
+            return Participants.SetMaxGuests(maxGuests);
+        }
+
+
     }
 }
