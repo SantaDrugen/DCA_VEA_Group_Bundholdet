@@ -2,17 +2,18 @@
 using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Domain.Aggregates.Event
-{
+{ 
+    // TODO: Set to public 
     internal class VeaEvent
     {
         public EventId Id { get; }
-        public EventTitle title { get; private set; }
-        public EventDescription Description { get; set; }
-        public EventDateTime DateTime { get; set; }
-        private EventVisibility Visibility { get; set; }
-        public EventStatus status { get; private set; }
-        public EventParticipants Participants { get; set; }
-        private EventInvitations Invitations { get; set; }
+        public EventTitle? title { get; private set; }
+        public EventDescription? Description { get; set; }
+        public EventDateTime? DateTime { get; set; }
+        private EventVisibility? Visibility { get; set; }
+        public EventStatus? status { get; private set; }
+        public EventParticipants? Participants { get; set; }
+        private EventInvitations? Invitations { get; set; }
 
         public VeaEvent()
         {

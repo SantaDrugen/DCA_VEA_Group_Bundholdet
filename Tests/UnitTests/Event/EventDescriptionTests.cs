@@ -5,6 +5,7 @@ namespace UnitTests.Event;
 
 public class VeaEventDescriptionTests
 {
+    // Some of these tests are technically Integration Tests, but they are included here for simplicity - TODO: Refactor
     [Fact]
     public void SetDescription_Success_WhenEventIsDraft()
     {

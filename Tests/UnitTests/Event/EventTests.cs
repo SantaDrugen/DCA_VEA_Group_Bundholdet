@@ -17,5 +17,5 @@ namespace UnitTests.Event
             Assert.Equal(5, result.Participants.MaxGuests);
             Assert.Equal("", result.Description.Value);
         }
-}
+    }
 }

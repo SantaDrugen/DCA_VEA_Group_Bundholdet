@@ -36,7 +36,7 @@
 
 
 * [ ] Use Case 4 (ID: 4 – The creator updates the start and end time of the event)
-- - [ ] S1
+- - [X] S1
 - - [ ] S2
 - - [ ] S3
 - - [ ] S4
