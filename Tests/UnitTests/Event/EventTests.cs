@@ -17,5 +17,19 @@ namespace UnitTests.Event
             Assert.Equal(5, result.Participants.MaxGuests);
             Assert.Equal("", result.Description.Value);
         }
+
+        [Fact]
+        public void EventVisibilityUpdated_Success_WhenStatusIsDraft()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+
+            // Act
+            veaEvent.SetVisibility(EventVisibility.Public);
+
+            // Assert
+            Assert.Equal(EventVisibility.Public, veaEvent.Visibility);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
     }
 }

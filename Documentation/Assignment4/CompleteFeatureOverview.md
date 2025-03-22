@@ -53,3 +53,11 @@
 - - [X] F10
 - - [X] F11
 - - [ ] Tests - All but the blocked scenarios
+
+
+* [ ] Use Case 5 (ID: 5 – The creator makes the event public)
+- - [ ] S1 - Partially blocked by Use Case 8 and 9
+	- [X] S1.1 (Draft)
+	- [ ] S1.2 (Ready)
+	- [ ] S1.3 (Active)
+- - [ ] F1 - Blocked by Use Case 24

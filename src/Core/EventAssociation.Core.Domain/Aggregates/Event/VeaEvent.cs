@@ -10,7 +10,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
         public EventTitle? title { get; private set; }
         public EventDescription? Description { get; set; }
         public EventDateTime? DateTime { get; set; }
-        private EventVisibility? Visibility { get; set; }
+        public EventVisibility? Visibility { get; set; }
         public EventStatus? status { get; private set; }
         public EventParticipants? Participants { get; set; }
         private EventInvitations? Invitations { get; set; }
@@ -172,6 +172,17 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             if (status == EventStatus.Ready)
                 status = EventStatus.Draft;
             return Results<EventDateTime>.Success(eventDateTime);
+        }
+
+        public Results<EventVisibility> SetVisibility(EventVisibility visibility)
+        {
+            if (status == EventStatus.Cancelled)
+            {
+                return Results<EventVisibility>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
+            }
+
+            Visibility = visibility;
+            return Results<EventVisibility>.Success(visibility);
         }
     }
 }
