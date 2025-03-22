@@ -61,6 +61,7 @@
 	- [ ] S1.2 (Ready)
 	- [ ] S1.3 (Active)
 - - [ ] F1 - Blocked by Use Case 24
+- - [ ] Tests - All but the blocked scenarios
 
 
 * [ ] Use Case 6 (ID: 6 – The creator makes the event private)
@@ -70,6 +71,7 @@
 	- [ ] S2.2 (Ready)
 - - [ ] F1 - Blocked by Use Case 9
 - - [ ] F2 - Blocked by Use Case 24
+- - [ ] Tests - All but the blocked scenarios
 
 
 * [ ] Use Case 7 (ID: 7 – The creator sets maximum number of guests)
@@ -85,3 +87,13 @@
 - - [ ] F3 - blocked by Use Case 16-20
 - - [X] F4
 - - [X] F5
+- - [ ] Tests - All but the blocked scenarios
+
+
+* [ ] Use Case 8 (ID: 8 – The creator readies an event)
+- - [X] S1
+- - [X] F1
+- - [ ] F2 - Blocked by Use Case 24
+- - [X] F3
+- - [X] F4
+- - [ ] Tests - All but the blocked scenarios

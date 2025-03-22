@@ -84,5 +84,125 @@ namespace UnitTests.Event
         {
             throw new NotImplementedException();
         }
+
+        [Fact]
+        public void EventStatusSetReady_Success_WhenCurrentStatusIsDraftAndEventHasAllRequiredValues()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetDescription("Description");
+            veaEvent.SetTitle("Valid Title");
+
+            var startDate = DateTime.Now.AddDays(1);
+            var endDate = DateTime.Now.AddDays(1);
+            var startDateTime = new DateTime(startDate.Year, startDate.Month, startDate.Day, 9, 0, 0);
+            var endDateTime = new DateTime(endDate.Year, endDate.Month, endDate.Day, 17, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDateTime, endDateTime).Value;
+
+            veaEvent.SetDateTime(eventDateTime);
+
+            // Act
+            var result = veaEvent.SetEventStatusReady();
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(EventStatus.Ready, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventStatusSetReady_Fails_WhenCurrentStatusIsDraftAndEventStillHasDefaultTitle()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetDescription("Description");
+
+            var startDate = DateTime.Now.AddDays(1);
+            var endDate = DateTime.Now.AddDays(1);
+            var startDateTime = new DateTime(startDate.Year, startDate.Month, startDate.Day, 9, 0, 0);
+            var endDateTime = new DateTime(endDate.Year, endDate.Month, endDate.Day, 17, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDateTime, endDateTime).Value;
+
+            veaEvent.SetDateTime(eventDateTime);
+
+            // Act
+            var result = veaEvent.SetEventStatusReady();
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventStatusSetReady_Fails_WhenCurrentStatusIsDraftAndEventStillHasDefaultDescription()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+
+            var startDate = DateTime.Now.AddDays(1);
+            var endDate = DateTime.Now.AddDays(1);
+            var startDateTime = new DateTime(startDate.Year, startDate.Month, startDate.Day, 9, 0, 0);
+            var endDateTime = new DateTime(endDate.Year, endDate.Month, endDate.Day, 17, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDateTime, endDateTime).Value;
+
+            veaEvent.SetDateTime(eventDateTime);
+
+            // Act
+            var result = veaEvent.SetEventStatusReady();
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventStatusSetReady_Fails_WhenCurrentStatusIsDraftAndEventStillHasDefaultDateTime()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            // Act
+            var result = veaEvent.SetEventStatusReady();
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventStatusSetReady_Fails_WhenCurrentStatusIsDraftAndEventIsInThePast() // If run between 00.00 and 08.00 this test will fail
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            var startDate = DateTime.Now.AddSeconds(1);
+            var endDate = DateTime.Now.AddHours(1).AddSeconds(2);
+            EventDateTime eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            
+            veaEvent.SetDateTime(eventDateTime);
+
+            Thread.Sleep(2000);
+
+            // Act
+            var result = veaEvent.SetEventStatusReady();
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
     }
 }

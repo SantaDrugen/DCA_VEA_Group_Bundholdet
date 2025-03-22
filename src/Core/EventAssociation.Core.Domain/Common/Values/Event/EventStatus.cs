@@ -35,7 +35,12 @@ namespace EventAssociation.Core.Domain.Common.Values.Event
             
             if (current == Active)
                 return Results<EventStatus>.Failure(new Error("EVENT_ACTIVE", "Cannot ready an active event."));
-            
+
+            if (current == Created)
+                return Results<EventStatus>.Failure(new Error("EVENT_CREATED", "Cannot ready a created event."));
+
+
+
             return Results<EventStatus>.Success(Ready);
         }
     }
