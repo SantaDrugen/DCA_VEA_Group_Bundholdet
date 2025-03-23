@@ -187,6 +187,11 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
                 return Results<EventVisibility>.Failure(new Error("EVENT_CANCELLED", "A cancelled event cannot be modified."));
             }
 
+            if (status == EventStatus.Ready && Visibility != EventVisibility.Public)
+            {
+                status = EventStatus.Draft;
+            }
+
             Visibility = EventVisibility.Public;
             return Results<EventVisibility>.Success(Visibility);
         }

@@ -204,5 +204,112 @@ namespace UnitTests.Event
             Assert.True(result.IsFailure);
             Assert.Equal(EventStatus.Draft, veaEvent.status);
         }
+
+        [Fact]
+        public void EventDateTime_Success_ChangesStatusFromReadyToDraft()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            var startDate = new DateTime(4000, 10, 10, 8, 0, 0);
+            var endDate = new DateTime(4000, 10, 10, 18, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            veaEvent.SetDateTime(eventDateTime);
+            veaEvent.SetEventStatusReady();
+
+            startDate = startDate.AddDays(1);
+            endDate = endDate.AddDays(1);
+            eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            veaEvent.SetDateTime(eventDateTime);
+
+            // Act
+            var result = veaEvent.SetDateTime(eventDateTime);
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventVisibilitySetPrivate_Success_WhenStatusIsReadyAndAlreadyPrivate()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            var startDate = new DateTime(4000, 10, 10, 8, 0, 0);
+            var endDate = new DateTime(4000, 10, 10, 18, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            veaEvent.SetDateTime(eventDateTime);
+
+            veaEvent.SetEventStatusReady();
+
+            // Act
+            veaEvent.SetVisibilityPrivate();
+
+            // Assert
+            Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
+            Assert.Equal(EventStatus.Ready, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventVisibilitySetPrivate_Success_WhenStatusIsDraftAndAlreadyPrivate()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+
+            // Act
+            veaEvent.SetVisibilityPrivate();
+
+            // Assert
+            Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventVisibilitySetPublic_Success_WhenStatusIsDraftAndVisibilityPrivate()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPrivate();
+
+            // Act
+            veaEvent.SetVisibilityPublic();
+
+            // Assert
+            Assert.Equal(EventVisibility.Public, veaEvent.Visibility);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventVisibilitySetPublic_Success_WhenStatusIsReadyAndVisibilityPrivate()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            var startDate = new DateTime(4000, 10, 10, 8, 0, 0);
+            var endDate = new DateTime(4000, 10, 10, 18, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            veaEvent.SetDateTime(eventDateTime);
+
+            veaEvent.SetEventStatusReady();
+
+            // Act
+            var result = veaEvent.SetVisibilityPublic();
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(EventVisibility.Public, veaEvent.Visibility);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+        }
     }
 }

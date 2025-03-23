@@ -38,7 +38,7 @@
 * [ ] Use Case 4 (ID: 4 – The creator updates the start and end time of the event)
 - - [X] S1
 - - [X] S2
-- - [ ] S3 - Blocked by Use Case 8
+- - [X] S3 - Blocked by Use Case 8
 - - [X] S4
 - - [X] S5
 - - [X] F1
@@ -47,7 +47,7 @@
 - - [X] F4
 - - [X] F5
 - - [X] F6
-- - [ ] F7 - Blocked by Use Case 8
+- - [ ] F7 - Blocked by Use Case 9
 - - [ ] F8 - Blocked by Use Case 24
 - - [X] F9
 - - [X] F10
@@ -65,7 +65,7 @@
 
 
 * [ ] Use Case 6 (ID: 6 – The creator makes the event private)
-- - [ ] S1 - Blocked by Use Case 8
+- - [X] S1 - Blocked by Use Case 8
 - - [ ] S2
 	- [X] S2.1 (Draft)
 	- [ ] S2.2 (Ready)
