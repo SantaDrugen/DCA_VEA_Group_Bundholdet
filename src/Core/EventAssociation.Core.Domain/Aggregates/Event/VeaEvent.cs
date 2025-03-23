@@ -251,10 +251,10 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
             var errors = new List<Error>();
 
-            if (title.Value == defaultTitle)
+            if (title?.Value == defaultTitle)
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have a title."));
 
-            if (Description.Value == defaultDescription)
+            if (Description?.Value == defaultDescription)
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have a description."));
 
             if (EventDateTime == null)
@@ -263,13 +263,13 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             if (Visibility == null) // Can visibility be null? -- default is private -- Can a private event be ready?
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have a visibility."));
 
-            if (Participants.MaxGuests < 5) // Might be redundant, as this is checked in SetMaxGuests
+            if (Participants?.MaxGuests < 5) // Might be redundant, as this is checked in SetMaxGuests
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have at least 5 max guests."));
 
-            if (Participants.MaxGuests > 50) // Might be redundant, as this is checked in SetMaxGuests
+            if (Participants?.MaxGuests > 50) // Might be redundant, as this is checked in SetMaxGuests
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have at most 50 max guests."));
 
-            if (EventDateTime.StartDateTime < DateTime.Now || EventDateTime.EndDateTime < DateTime.Now)
+            if (EventDateTime?.StartDateTime < DateTime.Now || EventDateTime?.EndDateTime < DateTime.Now)
                 errors.Add(new Error("EVENT_READY_STATUS", "Cannot ready event in the past"));
 
             if (errors.Any())
@@ -284,6 +284,55 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
             status = statusResult.Value;
 
+            return Results<EventStatus>.Success(status);
+        }
+
+        public Results<EventStatus> SetEventStatusActive()
+        {
+            var errors = new List<Error>();
+
+            if (title?.Value == defaultTitle)
+                errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have a title."));
+
+            if (Description?.Value == defaultDescription)
+                errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have a description."));
+
+            if (EventDateTime == null)
+                errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have a date and time."));
+
+            if (Visibility == null) // Can visibility be null? -- default is private -- Can a private event be ready?
+                errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have a visibility."));
+
+            if (Participants?.MaxGuests < 5) // Might be redundant, as this is checked in SetMaxGuests
+                errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have at least 5 max guests."));
+
+            if (Participants?.MaxGuests > 50) // Might be redundant, as this is checked in SetMaxGuests
+                errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have at most 50 max guests."));
+
+            if (EventDateTime?.StartDateTime < DateTime.Now || EventDateTime?.EndDateTime < DateTime.Now)
+                errors.Add(new Error("EVENT_ACTIVE_STATUS", "Cannot active event in the past"));
+
+            if (errors.Any()) // If anything has failed, return now
+                return Results<EventStatus>.Failure([.. errors]);
+
+            if (status == EventStatus.Draft)
+            {
+                var readyResult = EventStatus.SetReady(status);
+
+                if (readyResult.Errors.Any()) // If status update failed, return now
+                {
+                    return Results<EventStatus>.Failure(readyResult.Errors.ToArray());
+                }
+            }
+
+            var activeResult = EventStatus.SetActive(status);
+
+            if (activeResult.Errors.Any()) // If status update failed, return now
+            {
+                return Results<EventStatus>.Failure([.. activeResult.Errors]);
+            }
+
+            status = activeResult.Value;
             return Results<EventStatus>.Success(status);
         }
     }

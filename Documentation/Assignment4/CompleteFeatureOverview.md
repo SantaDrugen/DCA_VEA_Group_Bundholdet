@@ -38,7 +38,7 @@
 * [ ] Use Case 4 (ID: 4 – The creator updates the start and end time of the event)
 - - [X] S1
 - - [X] S2
-- - [X] S3 - Blocked by Use Case 8
+- - [X] S3
 - - [X] S4
 - - [X] S5
 - - [X] F1
@@ -65,22 +65,22 @@
 
 
 * [ ] Use Case 6 (ID: 6 – The creator makes the event private)
-- - [X] S1 - Blocked by Use Case 8
-- - [ ] S2
+- - [X] S1
+- - [X] S2
 	- [X] S2.1 (Draft)
-	- [ ] S2.2 (Ready)
+	- [X] S2.2 (Ready)
 - - [ ] F1 - Blocked by Use Case 9
 - - [ ] F2 - Blocked by Use Case 24
 - - [ ] Tests - All but the blocked scenarios
 
 
 * [ ] Use Case 7 (ID: 7 – The creator sets maximum number of guests)
-- - [ ] S1
+- - [X] S1
 	- [X] S1.1 (Draft)
-	- [ ] S1.2 (Ready)
-- - [ ] S2
+	- [X] S1.2 (Ready)
+- - [X] S2
 	- [X] S2.1 (Draft)
-	- [ ] S2.2 (Ready)
+	- [X] S2.2 (Ready)
 - - [ ] S3
 - - [ ] F1 - Blocked by Use Case 9
 - - [ ] F2 - Blocked by Use Case 24
@@ -97,3 +97,11 @@
 - - [X] F3
 - - [X] F4
 - - [ ] Tests - All but the blocked scenarios
+
+
+* [ ] Use Case 9 (ID: 9 – The creator activates an event)
+- - [X] S1
+- - [X] S2
+- - [X] S3
+- - [X] F1
+- - [ ] F2 - Blocked by Use Case 24

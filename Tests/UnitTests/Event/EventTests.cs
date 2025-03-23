@@ -311,5 +311,99 @@ namespace UnitTests.Event
             Assert.Equal(EventVisibility.Public, veaEvent.Visibility);
             Assert.Equal(EventStatus.Draft, veaEvent.status);
         }
+
+        [Fact]
+        public void EventStatusSetActive_Success_WhenEventIsViableAndStatusIsDraft()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            var startDate = new DateTime(4000, 10, 10, 8, 0, 0);
+            var endDate = new DateTime(4000, 10, 10, 18, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            veaEvent.SetDateTime(eventDateTime);
+
+            // Act
+            var result = veaEvent.SetEventStatusActive();
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(EventStatus.Active, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventStatusSetActive_Success_WhenStatusIsReady()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            var startDate = new DateTime(4000, 10, 10, 8, 0, 0);
+            var endDate = new DateTime(4000, 10, 10, 18, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            veaEvent.SetDateTime(eventDateTime);
+
+            veaEvent.SetEventStatusReady();
+
+            // Act
+            var result = veaEvent.SetEventStatusActive();
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(EventStatus.Active, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventStatusSetActive_Success_WhenStatusIsAlreadyActive()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+            veaEvent.SetVisibilityPublic();
+            veaEvent.SetMaxGuests(10);
+            veaEvent.SetTitle("Valid Title");
+            veaEvent.SetDescription("Description");
+
+            var startDate = new DateTime(4000, 10, 10, 8, 0, 0);
+            var endDate = new DateTime(4000, 10, 10, 18, 0, 0);
+            EventDateTime eventDateTime = EventDateTime.Create(startDate, endDate).Value;
+            veaEvent.SetDateTime(eventDateTime);
+
+            veaEvent.SetEventStatusActive();
+
+            // Act
+            var result = veaEvent.SetEventStatusActive();
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(EventStatus.Active, veaEvent.status);
+        }
+
+        [Fact]
+        public void EventStatusSetActive_Failure_WhenStatusIsDraftAndEventNotViable()
+        {
+            // Arrange
+            var veaEvent = VeaEvent.CreateNewEvent().Value;
+
+            // Act
+            var result = veaEvent.SetEventStatusActive();
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal(EventStatus.Draft, veaEvent.status);
+            
+            // Assert that all the expected errors are present
+            Assert.Equal(3, result.Errors.Count);
+
+            Assert.Equal("Event must have a title.", result.Errors[0].Message);
+            Assert.Equal("Event must have a description.", result.Errors[1].Message);
+            Assert.Equal("Event must have a date and time.", result.Errors[2].Message);
+        }
     }
 }
