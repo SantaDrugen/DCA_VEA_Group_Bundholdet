@@ -249,6 +249,9 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             // Do we need to check that 'this' is a valid event (title, description, DateTime, visibility, maxGuests)?
             // Or is it possible to create an event without these properties being valid?
 
+            if (status == EventStatus.Cancelled)
+                return Results<EventStatus>.Failure(new Error("EVENT_ACTIVE_STATUS", "A cancelled event cannot be activated."));
+
             var errors = new List<Error>();
 
             if (title?.Value == defaultTitle)
@@ -289,6 +292,9 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
         public Results<EventStatus> SetEventStatusActive()
         {
+            if (status == EventStatus.Cancelled)
+                return Results<EventStatus>.Failure(new Error("EVENT_ACTIVE_STATUS", "A cancelled event cannot be activated."));
+
             var errors = new List<Error>();
 
             if (title?.Value == defaultTitle)
