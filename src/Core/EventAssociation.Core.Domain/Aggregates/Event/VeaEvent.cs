@@ -4,7 +4,7 @@ using EventAssociation.Core.Tools.OperationResult;
 namespace EventAssociation.Core.Domain.Aggregates.Event
 {
     // TODO: Set to public 
-    internal class VeaEvent
+    public class VeaEvent
     {
         public EventId Id { get; }
         public EventTitle? title { get; private set; }

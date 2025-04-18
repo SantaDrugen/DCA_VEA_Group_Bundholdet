@@ -1,6 +1,6 @@
 ﻿namespace EventAssociation.Core.Domain.Common.Values.Event
 {
-    internal class EventId
+    public class EventId
     {
         public Guid Value { get; }
         public EventId()

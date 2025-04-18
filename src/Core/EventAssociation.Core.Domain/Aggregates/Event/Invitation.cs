@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventAssociation.Core.Domain.Aggregates.Event
 {
-    internal class Invitation
+    public class Invitation
     {
     }
 }

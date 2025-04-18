@@ -2,7 +2,7 @@
 
 namespace EventAssociation.Core.Domain.Common.Values.Event
 {
-    internal class EventDescription
+    public class EventDescription
     {
         private const int MaxLength = 250;
 

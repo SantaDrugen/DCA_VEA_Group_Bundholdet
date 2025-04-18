@@ -2,7 +2,7 @@
 
 namespace EventAssociation.Core.Domain.Aggregates.Event
 {
-    internal class EventDateTime
+    public class EventDateTime
     {
         public DateTime? StartDateTime { get; }
         public DateTime? EndDateTime { get; }

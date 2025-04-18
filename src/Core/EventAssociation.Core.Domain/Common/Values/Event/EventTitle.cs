@@ -2,7 +2,7 @@
 
 namespace EventAssociation.Core.Domain.Common.Values.Event
 {
-    internal class EventTitle
+    public class EventTitle
     {
         private const int MinLength = 3;
         private const int MaxLength = 75;

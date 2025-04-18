@@ -3,7 +3,7 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Domain.Aggregates.Event
 {
-    internal class EventParticipants
+    public class EventParticipants
     {
         public int MaxGuests;
         private List<GuestId> participants;
