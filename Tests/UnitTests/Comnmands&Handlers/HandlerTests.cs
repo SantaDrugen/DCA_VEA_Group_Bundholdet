@@ -202,5 +202,41 @@ namespace UnitTests
             // Assert
             Assert.True(result.IsFailure);
         }
+
+        [Fact]
+        public async Task SetEventStatusReadyHandler__ShouldReturnSuccess_WhenEventStatusIsSetReady()
+        {
+            // Arrange
+            var commandResult = SetEventStatusReadyCommand.Create(createdEvent.Id.Value.ToString());
+
+            createdEvent.SetDescription("A valid description");
+            createdEvent.SetTitle("A valid title");
+
+            EventDateTime eventDateTime = EventDateTime.Create(DateTime.Now.AddDays(1), DateTime.Now.AddDays(1).AddHours(2)).Value;
+
+            createdEvent.SetDateTime(eventDateTime);
+            createdEvent.SetVisibilityPublic();
+
+
+            var handler = new SetEventStatusReadyHandler(eventRepo, uow);
+
+
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsSuccess);
+        }
+
+        [Fact]
+        public async Task SetEventStatusReadyHandler_ShouldReturnFailure_WhenEventIsNotValid()
+        {
+            // Arrange
+            var commandResult = SetEventStatusReadyCommand.Create(createdEvent.Id.Value.ToString());
+            var handler = new SetEventStatusReadyHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsFailure);
+        }
     }
 }

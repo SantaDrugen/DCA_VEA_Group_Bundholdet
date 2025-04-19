@@ -32,10 +32,10 @@
  - [X] S1
  - [X] F1
 
-* [ ] Use Case 8
- - [ ] implement
- - [ ] S1
- - [ ] F1
+* [X] Use Case 8
+ - [X] implement
+ - [X] S1
+ - [X] F1
 
 * [ ] Use Case 9
  - [ ] implement
