@@ -11,6 +11,7 @@ namespace EventAssociation.Core.Domain.ReositoryInterfaces
         Task<Results<VeaEvent>> GetByIdAsync(EventId id);
         Task<Results> SetEventPrivate(EventId id);
         Task<Results> SetEventPublic(EventId id);
+        Task<Results> SetEventStatusActive(EventId id);
         Task<Results> SetEventStatusReady(EventId id);
         Task<Results> UpdateEventDateTime(EventId id, EventDateTime dateTime);
         Task<Results> UpdateEventDescription(EventId id, EventDescription newDescription);
