@@ -5,8 +5,10 @@ namespace EventAssociation.Core.Domain.ReositoryInterfaces
 {
     public interface IEventRepository
     {
-        Task<Results<VeaEvent>> CreateAsync();
+        Task<Results<VeaEvent>> CreateAsync(VeaEvent @event);
 
         Task<Results<VeaEvent>> GetByIdAsync(Guid id);
+
+        Task<Results> UpdateEventTitle(Guid id, string newTitle);
     }
 }

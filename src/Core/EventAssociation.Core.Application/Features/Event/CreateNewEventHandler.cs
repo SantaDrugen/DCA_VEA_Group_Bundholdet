@@ -1,13 +1,12 @@
-﻿using EventAssociation.Core.Application.Commands;
-using EventAssociation.Core.Application.Features;
+﻿using EventAssociation.Core.Application.Commands.Event;
 using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Features
+namespace EventAssociation.Core.Application.Features.Event
 {
-    internal class CreateNewEventHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<CreateNewEventCommand>
+    public class CreateNewEventHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<CreateNewEventCommand>
     {
         private readonly IEventRepository eventRepo = repo;
         private readonly IUnitOfWork uow = work;

@@ -4,6 +4,6 @@ namespace EventAssociation.Core.Domain.Common
 {
     public interface IUnitOfWork
     {
-        Task<Results<bool>> SaveChangesAsync();
+        Task<Results> SaveChangesAsync();
     }
 }

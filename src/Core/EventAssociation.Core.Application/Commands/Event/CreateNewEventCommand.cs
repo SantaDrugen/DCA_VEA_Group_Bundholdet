@@ -1,7 +1,6 @@
-﻿using EventAssociation.Core.Domain.Aggregates.Event;
-using EventAssociation.Core.Tools.OperationResult;
+﻿using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Commands
+namespace EventAssociation.Core.Application.Commands.Event
 {
     public class CreateNewEventCommand
     {
