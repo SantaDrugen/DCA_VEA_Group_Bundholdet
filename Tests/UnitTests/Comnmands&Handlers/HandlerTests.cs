@@ -126,5 +126,33 @@ namespace UnitTests
             // Assert
             Assert.True(result.IsFailure);
         }
+
+        [Fact]
+        public async Task SetEventPublicHandler_ShouldReturnSuccess_WhenEventIsSetPublic()
+        {
+            // Arrange
+            var commandResult = SetEventPublicCommand.Create(createdEvent.Id.Value.ToString());
+            var handler = new SetEventPublicHandler(eventRepo, uow);
+
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+
+            // Assert
+            Assert.True(result.IsSuccess);
+        }
+
+        [Fact]
+        public async Task SetEventPublicHandler_ShouldReturnFailure_WhenEventDoesNotExist()
+        {
+            // Arrange
+            var commandResult = SetEventPublicCommand.Create(Guid.NewGuid().ToString());
+            var handler = new SetEventPublicHandler(eventRepo, uow);
+
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+
+            // Assert
+            Assert.True(result.IsFailure);
+        }
     }
 }

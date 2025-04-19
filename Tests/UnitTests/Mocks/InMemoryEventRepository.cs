@@ -27,6 +27,16 @@ namespace EventAssociation.Tests.Infrastructure.Repositories
             return Task.FromResult(Results<VeaEvent>.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
         }
 
+        public Task<Results> SetEventPublic(EventId id)
+        {
+            if (_store.TryGetValue(id, out var existing))
+            {
+                existing.SetVisibilityPublic();
+                return Task.FromResult(Results.Success());
+            }
+            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
+        }
+
         public Task<Results> UpdateEventDateTime(EventId id, EventDateTime dateTime)
         {
             if (_store.TryGetValue(id, out var existing))
