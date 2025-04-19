@@ -8,7 +8,7 @@ namespace EventAssociation.Core.Domain.ReositoryInterfaces
         Task<Results<VeaEvent>> CreateAsync(VeaEvent @event);
 
         Task<Results<VeaEvent>> GetByIdAsync(Guid id);
-
+        Task<Results> UpdateEventDescription(Guid id, string newDescription);
         Task<Results> UpdateEventTitle(Guid id, string newTitle);
     }
 }

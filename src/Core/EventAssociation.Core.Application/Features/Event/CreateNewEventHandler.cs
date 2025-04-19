@@ -14,9 +14,10 @@ namespace EventAssociation.Core.Application.Features.Event
         public async Task<Results> HandleAsync(CreateNewEventCommand command)
         {
             // Implementation goes here
-            Results result = VeaEvent.CreateNewEvent();
+            Results<VeaEvent> result = VeaEvent.CreateNewEvent();
             if (result.IsSuccess)
             {
+                await eventRepo.CreateAsync(result.Value);
                 await uow.SaveChangesAsync();
             }
             return result;

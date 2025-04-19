@@ -5,27 +5,28 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Application.Features.Event
 {
-    public class UpdateEventTitleHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<UpdateEventTitleCommand>
+    public class UpdateEventDescriptionHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<UpdateEventDescriptionCommand>
     {
         private readonly IEventRepository eventRepo = repo;
         private readonly IUnitOfWork uow = work;
-
-        public async Task<Results> HandleAsync(UpdateEventTitleCommand command)
+        public async Task<Results> HandleAsync(UpdateEventDescriptionCommand command)
         {
             List<Error> errors = new List<Error>();
 
             Results getResult = await eventRepo.GetByIdAsync(command.id.Value);
+
             if (getResult.IsFailure)
                 errors.AddRange(getResult.Errors);
 
-            Results updateResult = await eventRepo.UpdateEventTitle(command.id.Value, command.newTtitle.Value);
+            Results updateResult = await eventRepo.UpdateEventDescription(command.id.Value, command.newDescription.Value);
+
             if (updateResult.IsFailure)
                 errors.AddRange(updateResult.Errors);
 
             if (errors.Any())
                 return Results.Failure(errors.ToArray());
 
-            await eventRepo.UpdateEventTitle(command.id.Value, command.newTtitle.Value);
+            await eventRepo.UpdateEventDescription(command.id.Value, command.newDescription.Value);
 
             await uow.SaveChangesAsync();
 

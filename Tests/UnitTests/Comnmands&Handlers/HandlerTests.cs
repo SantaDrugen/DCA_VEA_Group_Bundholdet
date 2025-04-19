@@ -70,5 +70,30 @@ namespace UnitTests
             // Assert
             Assert.True(result.IsFailure);
         }
+
+        [Fact]
+        public async Task UpdateEventDescriptionHandler_ShouldReturnSuccess_WhenEventDescriptionIsUpdated()
+        {
+            // Arrange
+            var commandResult = UpdateEventDescriptionCommand.Create(createdEvent.Id.Value.ToString(), "New Description");
+            var handler = new UpdateEventDescriptionHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal("New Description", createdEvent.Description.Value);
+        }
+
+        [Fact]
+        public async Task UpdateEventDescriptionHandler_ShouldReturnFailure_WhenEventDoesNotExist()
+        {
+            // Arrange
+            var commandResult = UpdateEventDescriptionCommand.Create(Guid.NewGuid().ToString(), "New Description");
+            var handler = new UpdateEventDescriptionHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsFailure);
+        }
     }
 }

@@ -26,6 +26,16 @@ namespace EventAssociation.Tests.Infrastructure.Repositories
             return Task.FromResult(Results<VeaEvent>.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
         }
 
+        public Task<Results> UpdateEventDescription(Guid id, string newDescription)
+        {
+            if (_store.TryGetValue(id, out var existing))
+            {
+                existing.SetDescription(newDescription);
+                return Task.FromResult(Results.Success());
+            }
+            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
+        }
+
         public Task<Results> UpdateEventTitle(Guid id, string newTitle)
         {
             if (_store.TryGetValue(id, out var existing))
