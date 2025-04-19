@@ -154,5 +154,53 @@ namespace UnitTests
             // Assert
             Assert.True(result.IsFailure);
         }
+
+        [Fact]
+        public async Task SetEventPrivateHandler_ShouldReturnSuccess_WhenEventIsSetPrivate()
+        {
+            // Arrange
+            var commandResult = SetEventPrivateCommand.Create(createdEvent.Id.Value.ToString());
+            var handler = new SetEventPrivateHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsSuccess);
+        }
+
+        [Fact]
+        public async Task SetEventPrivateHandler_ShouldReturnFailure_WhenEventDoesNotExist()
+        {
+            // Arrange
+            var commandResult = SetEventPrivateCommand.Create(Guid.NewGuid().ToString());
+            var handler = new SetEventPrivateHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsFailure);
+        }
+
+        [Fact]
+        public async Task SetEventMaxNumberOfGuestsHandler_ShouldReturnSuccess_WhenMaxNumberOfGuestsIsSet()
+        {
+            // Arrange
+            var commandResult = SetEventMaxNumberOfGuestsCommand.Create(createdEvent.Id.Value.ToString(), 25);
+            var handler = new SetEventMaxNumberOfGuestsHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsSuccess);
+        }
+
+        [Fact]
+        public async Task SetEventMaxNumberOfGuestsHandler_ShouldReturnFailure_WhenEventDoesNotExist()
+        {
+            // Arrange
+            var commandResult = SetEventMaxNumberOfGuestsCommand.Create(Guid.NewGuid().ToString(), 25);
+            var handler = new SetEventMaxNumberOfGuestsHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsFailure);
+        }
     }
 }

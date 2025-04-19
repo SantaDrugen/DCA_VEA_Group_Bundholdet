@@ -27,6 +27,16 @@ namespace EventAssociation.Tests.Infrastructure.Repositories
             return Task.FromResult(Results<VeaEvent>.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
         }
 
+        public Task<Results> SetEventPrivate(EventId id)
+        {
+            if (_store.TryGetValue(id, out var existing))
+            {
+                existing.SetVisibilityPrivate();
+                return Task.FromResult(Results.Success());
+            }
+            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
+        }
+
         public Task<Results> SetEventPublic(EventId id)
         {
             if (_store.TryGetValue(id, out var existing))
@@ -55,6 +65,16 @@ namespace EventAssociation.Tests.Infrastructure.Repositories
                 return Task.FromResult(Results.Success());
             }
             return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
+        }
+
+        public Task<Results<NumberOfGuests>> UpdateEventMaxNumberOfGuests(EventId id, NumberOfGuests maxNumberOfGuests)
+        {
+            if (_store.TryGetValue(id, out var existing))
+            {
+                existing.SetMaxGuests(maxNumberOfGuests.Value);
+                return Task.FromResult(Results<NumberOfGuests>.Success(maxNumberOfGuests));
+            }
+            return Task.FromResult(Results<NumberOfGuests>.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
         }
 
         public Task<Results> UpdateEventTitle(EventId id, EventTitle newTitle)

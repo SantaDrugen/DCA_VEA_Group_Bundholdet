@@ -17,7 +17,7 @@ namespace EventAssociation.Core.Application.Features.Event
             Results<VeaEvent> getResult = await eventRepo.GetByIdAsync(command.id);
 
             if (getResult.IsFailure)
-                errors.AddRange(getResult.Errors);
+                return Results.Failure(getResult.Errors.ToArray());
 
             Results updateResult = await eventRepo.UpdateEventDateTime(command.id, command.newDateTime);
 

@@ -9,9 +9,11 @@ namespace EventAssociation.Core.Domain.ReositoryInterfaces
         Task<Results<VeaEvent>> CreateAsync(VeaEvent @event);
 
         Task<Results<VeaEvent>> GetByIdAsync(EventId id);
+        Task<Results> SetEventPrivate(EventId id);
         Task<Results> SetEventPublic(EventId id);
         Task<Results> UpdateEventDateTime(EventId id, EventDateTime dateTime);
         Task<Results> UpdateEventDescription(EventId id, EventDescription newDescription);
+        Task<Results<NumberOfGuests>> UpdateEventMaxNumberOfGuests(EventId id, NumberOfGuests maxNumberOfGuests);
         Task<Results> UpdateEventTitle(EventId id, EventTitle newTitle);
     }
 }

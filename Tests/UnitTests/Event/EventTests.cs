@@ -14,7 +14,7 @@ namespace UnitTests.Event
             // Assert
             Assert.True(result.status == EventStatus.Draft);
             Assert.Equal("Working Title", result.title.Value);
-            Assert.Equal(5, result.Participants.MaxGuests);
+            Assert.Equal(5, result.Participants.MaxGuests.Value);
             Assert.Equal("", result.Description.Value);
         }
 
@@ -57,7 +57,7 @@ namespace UnitTests.Event
             veaEvent.SetMaxGuests(10);
 
             // Assert
-            Assert.Equal(10, veaEvent.Participants.MaxGuests);
+            Assert.Equal(10, veaEvent.Participants.MaxGuests.Value);
             Assert.Equal(EventStatus.Draft, veaEvent.status);
         }
 

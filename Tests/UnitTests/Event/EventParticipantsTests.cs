@@ -17,7 +17,7 @@ namespace UnitTests.Event
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(maxGuests, result.Value);
+            Assert.Equal(maxGuests, result.Value.Value);
         }
 
         [Fact]

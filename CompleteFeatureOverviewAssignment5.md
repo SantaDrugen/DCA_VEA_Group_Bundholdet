@@ -22,15 +22,15 @@
  - [X] S1
  - [X] F1
 
-* [ ] Use Case 6
- - [ ] implement
- - [ ] S1
- - [ ] F1
+* [X] Use Case 6
+ - [X] implement
+ - [X] S1
+ - [X] F1
 
-* [ ] Use Case 7
- - [ ] implement
- - [ ] S1
- - [ ] F1
+* [X] Use Case 7
+ - [X] implement
+ - [X] S1
+ - [X] F1
 
 * [ ] Use Case 8
  - [ ] implement

@@ -222,7 +222,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             return Results<EventVisibility>.Success(Visibility);
         }
 
-        public Results<int> SetMaxGuests(int maxGuests)
+        public Results<NumberOfGuests> SetMaxGuests(int maxGuests)
         {
             var errors = new List<Error>();
 
@@ -238,7 +238,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
             if (errors.Any())
             {
-                return Results<int>.Failure(errors.ToArray());
+                return Results<NumberOfGuests>.Failure(errors.ToArray());
             }
 
             return Participants.SetMaxGuests(maxGuests);
@@ -266,10 +266,10 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             if (Visibility == null) // Can visibility be null? -- default is private -- Can a private event be ready?
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have a visibility."));
 
-            if (Participants?.MaxGuests < 5) // Might be redundant, as this is checked in SetMaxGuests
+            if (Participants?.MaxGuests.Value < 5) // Might be redundant, as this is checked in SetMaxGuests
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have at least 5 max guests."));
 
-            if (Participants?.MaxGuests > 50) // Might be redundant, as this is checked in SetMaxGuests
+            if (Participants?.MaxGuests.Value > 50) // Might be redundant, as this is checked in SetMaxGuests
                 errors.Add(new Error("EVENT_READY_STATUS", "Event must have at most 50 max guests."));
 
             if (EventDateTime?.StartDateTime < DateTime.Now || EventDateTime?.EndDateTime < DateTime.Now)
@@ -309,10 +309,10 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
             if (Visibility == null) // Can visibility be null? -- default is private -- Can a private event be ready?
                 errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have a visibility."));
 
-            if (Participants?.MaxGuests < 5) // Might be redundant, as this is checked in SetMaxGuests
+            if (Participants?.MaxGuests.Value < 5) // Might be redundant, as this is checked in SetMaxGuests
                 errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have at least 5 max guests."));
 
-            if (Participants?.MaxGuests > 50) // Might be redundant, as this is checked in SetMaxGuests
+            if (Participants?.MaxGuests.Value > 50) // Might be redundant, as this is checked in SetMaxGuests
                 errors.Add(new Error("EVENT_ACTIVE_STATUS", "Event must have at most 50 max guests."));
 
             if (EventDateTime?.StartDateTime < DateTime.Now || EventDateTime?.EndDateTime < DateTime.Now)

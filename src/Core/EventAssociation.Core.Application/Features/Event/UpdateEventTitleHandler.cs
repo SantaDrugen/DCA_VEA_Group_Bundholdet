@@ -15,8 +15,9 @@ namespace EventAssociation.Core.Application.Features.Event
             List<Error> errors = new List<Error>();
 
             Results getResult = await eventRepo.GetByIdAsync(command.id);
+
             if (getResult.IsFailure)
-                errors.AddRange(getResult.Errors);
+                return Results.Failure(getResult.Errors.ToArray());
 
             Results updateResult = await eventRepo.UpdateEventTitle(command.id, command.newTtitle);
             if (updateResult.IsFailure)
