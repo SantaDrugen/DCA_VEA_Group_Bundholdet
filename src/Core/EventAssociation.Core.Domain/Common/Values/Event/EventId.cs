@@ -27,5 +27,19 @@ namespace EventAssociation.Core.Domain.Common.Values.Event
             }
             return Results<EventId>.Success(new EventId { Value = parsedId });
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is EventId other)
+            {
+                return Value.Equals(other.Value);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
     }
 }

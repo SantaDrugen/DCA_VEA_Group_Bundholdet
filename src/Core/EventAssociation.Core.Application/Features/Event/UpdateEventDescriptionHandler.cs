@@ -13,20 +13,18 @@ namespace EventAssociation.Core.Application.Features.Event
         {
             List<Error> errors = new List<Error>();
 
-            Results getResult = await eventRepo.GetByIdAsync(command.id.Value);
+            Results getResult = await eventRepo.GetByIdAsync(command.id);
 
             if (getResult.IsFailure)
                 errors.AddRange(getResult.Errors);
 
-            Results updateResult = await eventRepo.UpdateEventDescription(command.id.Value, command.newDescription.Value);
+            Results updateResult = await eventRepo.UpdateEventDescription(command.id, command.newDescription);
 
             if (updateResult.IsFailure)
                 errors.AddRange(updateResult.Errors);
 
             if (errors.Any())
                 return Results.Failure(errors.ToArray());
-
-            await eventRepo.UpdateEventDescription(command.id.Value, command.newDescription.Value);
 
             await uow.SaveChangesAsync();
 

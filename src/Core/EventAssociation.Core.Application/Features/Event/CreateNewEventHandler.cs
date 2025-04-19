@@ -13,13 +13,23 @@ namespace EventAssociation.Core.Application.Features.Event
 
         public async Task<Results> HandleAsync(CreateNewEventCommand command)
         {
-            // Implementation goes here
+            List<Error> errors = new List<Error>();
+
             Results<VeaEvent> result = VeaEvent.CreateNewEvent();
-            if (result.IsSuccess)
-            {
-                await eventRepo.CreateAsync(result.Value);
-                await uow.SaveChangesAsync();
-            }
+
+            if (result.IsFailure)
+                errors.AddRange(result.Errors);
+
+            Results repoResult = await eventRepo.CreateAsync(result.Value);
+
+            if (repoResult.IsFailure)
+                errors.AddRange(repoResult.Errors);
+
+            if (errors.Any())
+                return Results.Failure(errors.ToArray());
+
+            await uow.SaveChangesAsync();
+
             return result;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using EventAssociation.Core.Domain.Aggregates.Event;
+using EventAssociation.Core.Domain.Common.Values.Event;
 using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Domain.ReositoryInterfaces
@@ -7,8 +8,9 @@ namespace EventAssociation.Core.Domain.ReositoryInterfaces
     {
         Task<Results<VeaEvent>> CreateAsync(VeaEvent @event);
 
-        Task<Results<VeaEvent>> GetByIdAsync(Guid id);
-        Task<Results> UpdateEventDescription(Guid id, string newDescription);
-        Task<Results> UpdateEventTitle(Guid id, string newTitle);
+        Task<Results<VeaEvent>> GetByIdAsync(EventId id);
+        Task<Results> UpdateEventDateTime(EventId id, EventDateTime dateTime);
+        Task<Results> UpdateEventDescription(EventId id, EventDescription newDescription);
+        Task<Results> UpdateEventTitle(EventId id, EventTitle newTitle);
     }
 }

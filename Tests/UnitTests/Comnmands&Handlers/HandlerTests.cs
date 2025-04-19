@@ -95,5 +95,36 @@ namespace UnitTests
             // Assert
             Assert.True(result.IsFailure);
         }
+
+        [Fact]
+        public async Task UpdateEventDateTimeHandler_ShouldReturnSuccess_WhenEventDateTimeIsUpdated()
+        {
+            // Arrange
+            DateTime newStartDateTime = DateTime.Now.AddDays(1);
+            DateTime newEndDateTime = DateTime.Now.AddDays(1).AddHours(2);
+
+            var commandResult = UpdateEventDateTimeCommand.Create(createdEvent.Id.Value.ToString(), newStartDateTime, newEndDateTime);
+            var handler = new UpdateEventDateTimeHandler(eventRepo, uow);
+
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+
+            // Assert
+            Assert.True(result.IsSuccess);
+        }
+
+        [Fact]
+        public async Task UpdateEventDateTimeHandler_ShouldReturnFailure_WhenEventDoesNotExist()
+        {
+            // Arrange
+            DateTime newStartDateTime = DateTime.Now.AddDays(1);
+            DateTime newEndDateTime = DateTime.Now.AddDays(1).AddHours(2);
+            var commandResult = UpdateEventDateTimeCommand.Create(Guid.NewGuid().ToString(), newStartDateTime, newEndDateTime);
+            var handler = new UpdateEventDateTimeHandler(eventRepo, uow);
+            // Act
+            var result = await handler.HandleAsync(commandResult.Value);
+            // Assert
+            Assert.True(result.IsFailure);
+        }
     }
 }
