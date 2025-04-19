@@ -6,10 +6,17 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Application.Features.Event
 {
-    public class SetEventPublicHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<SetEventPublicCommand>
+    public class SetEventPublicHandler : ICommandHandler<SetEventPublicCommand>
     {
-        private readonly IEventRepository eventRepo = repo;
-        private readonly IUnitOfWork uow = work;
+        private readonly IEventRepository eventRepo;
+        private readonly IUnitOfWork uow;
+
+        public SetEventPublicHandler(IEventRepository repo, IUnitOfWork work)
+        {
+            eventRepo = repo;
+            uow = work;
+        }
+
         public async Task<Results> HandleAsync(SetEventPublicCommand command)
         {
             List<Error> errors = new List<Error>();

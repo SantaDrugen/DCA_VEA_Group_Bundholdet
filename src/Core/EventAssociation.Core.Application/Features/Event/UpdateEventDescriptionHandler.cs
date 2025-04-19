@@ -5,10 +5,17 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Application.Features.Event
 {
-    public class UpdateEventDescriptionHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<UpdateEventDescriptionCommand>
+    public class UpdateEventDescriptionHandler : ICommandHandler<UpdateEventDescriptionCommand>
     {
-        private readonly IEventRepository eventRepo = repo;
-        private readonly IUnitOfWork uow = work;
+        private readonly IEventRepository eventRepo;
+        private readonly IUnitOfWork uow;
+
+        public UpdateEventDescriptionHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        {
+            this.eventRepo = eventRepo;
+            this.uow = uow;
+        }
+
         public async Task<Results> HandleAsync(UpdateEventDescriptionCommand command)
         {
             List<Error> errors = new List<Error>();

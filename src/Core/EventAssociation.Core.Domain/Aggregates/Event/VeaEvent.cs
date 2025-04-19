@@ -319,7 +319,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
                 errors.Add(new Error("EVENT_ACTIVE_STATUS", "Cannot active event in the past"));
 
             if (errors.Any()) // If anything has failed, return now
-                return Results<EventStatus>.Failure([.. errors]);
+                return Results<EventStatus>.Failure(errors.ToArray());
 
             if (status == EventStatus.Draft)
             {
@@ -335,7 +335,7 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
             if (activeResult.Errors.Any()) // If status update failed, return now
             {
-                return Results<EventStatus>.Failure([.. activeResult.Errors]);
+                return Results<EventStatus>.Failure(activeResult.Errors.ToArray());
             }
 
             status = activeResult.Value;

@@ -5,10 +5,16 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Application.Features.Event
 {
-    public class UpdateEventTitleHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<UpdateEventTitleCommand>
+    public class UpdateEventTitleHandler : ICommandHandler<UpdateEventTitleCommand>
     {
-        private readonly IEventRepository eventRepo = repo;
-        private readonly IUnitOfWork uow = work;
+        private readonly IEventRepository eventRepo;
+        private readonly IUnitOfWork uow;
+
+        public UpdateEventTitleHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        {
+            this.eventRepo = eventRepo;
+            this.uow = uow;
+        }
 
         public async Task<Results> HandleAsync(UpdateEventTitleCommand command)
         {

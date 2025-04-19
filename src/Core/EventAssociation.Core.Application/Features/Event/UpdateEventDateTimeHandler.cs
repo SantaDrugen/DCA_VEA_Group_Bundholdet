@@ -6,10 +6,17 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Application.Features.Event
 {
-    public class UpdateEventDateTimeHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<UpdateEventDateTimeCommand>
+    public class UpdateEventDateTimeHandler : ICommandHandler<UpdateEventDateTimeCommand>
     {
-        private readonly IEventRepository eventRepo = repo;
-        private readonly IUnitOfWork uow = work;
+        private readonly IEventRepository eventRepo;
+        private readonly IUnitOfWork uow;
+
+        public UpdateEventDateTimeHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        {
+            this.eventRepo = eventRepo;
+            this.uow = uow;
+        }
+
         public async Task<Results> HandleAsync(UpdateEventDateTimeCommand command)
         {
             List<Error> errors = new List<Error>();

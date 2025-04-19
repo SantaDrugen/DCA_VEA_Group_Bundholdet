@@ -7,10 +7,16 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Application.Features.Event
 {
-    public class SetEventMaxNumberOfGuestsHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<SetEventMaxNumberOfGuestsCommand>
+    public class SetEventMaxNumberOfGuestsHandler : ICommandHandler<SetEventMaxNumberOfGuestsCommand>
     {
-        private readonly IEventRepository eventRepo = repo;
-        private readonly IUnitOfWork uow = work;
+        private readonly IEventRepository eventRepo;
+        private readonly IUnitOfWork uow;
+
+        public SetEventMaxNumberOfGuestsHandler(IEventRepository eventRepository, IUnitOfWork unitOfWork)
+        {
+            eventRepo = eventRepository;
+            uow = unitOfWork;
+        }
 
         public async Task<Results> HandleAsync(SetEventMaxNumberOfGuestsCommand command)
         {

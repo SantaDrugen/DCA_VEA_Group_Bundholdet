@@ -6,10 +6,16 @@ using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Application.Features.Event
 {
-    public class SetEventPrivateHandler(IEventRepository repo, IUnitOfWork work) : ICommandHandler<SetEventPrivateCommand>
+    public class SetEventPrivateHandler : ICommandHandler<SetEventPrivateCommand>
     {
-        private readonly IEventRepository eventRepo = repo;
-        private readonly IUnitOfWork uow = work;
+        private readonly IEventRepository eventRepo;
+        private readonly IUnitOfWork uow;
+
+        public SetEventPrivateHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        {
+            this.eventRepo = eventRepo;
+            this.uow = uow;
+        }
 
         public async Task<Results> HandleAsync(SetEventPrivateCommand command)
         {
