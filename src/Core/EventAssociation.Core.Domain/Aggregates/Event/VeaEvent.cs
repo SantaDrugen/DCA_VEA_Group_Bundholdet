@@ -1,4 +1,5 @@
 ﻿using EventAssociation.Core.Domain.Common.Values.Event;
+using EventAssociation.Core.Domain.Common.Values.Guest;
 using EventAssociation.Core.Tools.OperationResult;
 
 namespace EventAssociation.Core.Domain.Aggregates.Event
@@ -340,6 +341,35 @@ namespace EventAssociation.Core.Domain.Aggregates.Event
 
             status = activeResult.Value;
             return Results<EventStatus>.Success(status);
+        }
+        
+        public Results RegisterParticipant(GuestId guestId, DateTime nowUtc)
+        {
+            var errors = new List<Error>();
+
+            if (status != EventStatus.Active)
+                errors.Add(new Error("EVENT_NOT_ACTIVE",
+                    "Only active events can be joined."));
+
+            if (Visibility != EventVisibility.Public)
+                errors.Add(new Error("EVENT_NOT_PUBLIC",
+                    "Only public events can be joined."));
+
+            if (EventDateTime is null || EventDateTime.StartDateTime <= nowUtc)
+                errors.Add(new Error("EVENT_ALREADY_STARTED",
+                    "Cannot join an event that has already started."));
+
+            if (Participants is null)
+                errors.Add(new Error("PARTICIPANT_CONTAINER_MISSING",
+                    "Participants collection not initialised."));
+
+            if (errors.Any()) return Results.Failure(errors.ToArray());
+
+            // delegate capacity / duplicate checks to value‑object:
+            var addRes = Participants!.AddGuest(guestId);
+            return addRes.IsFailure
+                ? addRes
+                : Results.Success();          // maintain one flat result outward
         }
     }
 }
