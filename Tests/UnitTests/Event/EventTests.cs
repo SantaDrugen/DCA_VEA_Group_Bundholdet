@@ -61,25 +61,25 @@ namespace UnitTests.Event
             Assert.Equal(EventStatus.Draft, veaEvent.status);
         }
 
-        [Fact]
+        [Fact(Skip = "not implemented yet")]
         public void EventMaxGuestsUpdated_Success_WhenCurrentStatusIsReady()
         {
             throw new NotImplementedException();
         }
 
-        [Fact]
+        [Fact(Skip = "not implemented yet")]
         public void EventMaxGuestsUpdated_Success_WhenCurrentStatusIsActive()
         {
             throw new NotImplementedException();
         }
 
-        [Fact]
+        [Fact(Skip = "not implemented yet")]
         public void EventMaxGuestsUpdated_Failure_WhenStatusIsActiveAndNewMaxGuestsIsLessThanCurrent()
         {
             throw new NotImplementedException();
         }
 
-        [Fact]
+        [Fact(Skip = "not implemented yet")]
         public void EventMaxGuestsUpdated_Failure_WhenStatusIsCancelled()
         {
             throw new NotImplementedException();

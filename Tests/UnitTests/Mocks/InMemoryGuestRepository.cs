@@ -24,4 +24,11 @@ public sealed class InMemoryGuestRepository : IGuestRepository
             ? Task.FromResult(Results<VeaGuest>.Success(g))
             : Task.FromResult(Results<VeaGuest>.Failure(
                 new Error("NOT_FOUND", $"No guest with e‑mail {email}.")));
+    
+    public Task<Results<VeaGuest>> GetByIdAsync(GuestId id) =>
+        _store.Values.FirstOrDefault(g => g.Id.Equals(id)) is { } g
+            ? Task.FromResult(Results<VeaGuest>.Success(g))
+            : Task.FromResult(Results<VeaGuest>.Failure(
+                new Error("NOT_FOUND", $"No guest with id {id.Value}.")));
+
 }

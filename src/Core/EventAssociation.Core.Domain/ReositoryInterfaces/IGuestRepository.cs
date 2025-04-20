@@ -8,4 +8,5 @@ public interface IGuestRepository
 {
     Task<Results<VeaGuest>> CreateAsync(VeaGuest guest);
     Task<Results<VeaGuest>> GetByEmailAsync(EmailAddress email);
+    Task<Results<VeaGuest>> GetByIdAsync(GuestId id);
 }
