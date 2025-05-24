@@ -46,5 +46,7 @@ namespace UnitTests.Dispatcher
             await Assert.ThrowsAsync<InvalidOperationException>(
                 () => dispatcher.DispatchAsync(new TestCommand()));
         }
+
+
     }
 }

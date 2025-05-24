@@ -21,6 +21,8 @@ namespace EventAssociation.Core.Application.DependencyInjection
             foreach (var (impl, intf) in handlerTypes)
                 services.AddScoped(intf, impl);
 
+            services.Decorate<ICommandDispatcher, LoggingDispatcher>();
+
             return services;
         }
     }
