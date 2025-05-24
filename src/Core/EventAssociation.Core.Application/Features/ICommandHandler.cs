@@ -2,8 +2,12 @@
 
 namespace EventAssociation.Core.Application.Features
 {
-    internal interface ICommandHandler<TCommand>
+    public interface ICommandHandler<TCommand>
     {
-        internal Task<Results> HandleAsync(TCommand command);
+        /// <summary>
+        /// Execute the command; return Results indicating success or failure, with messages.
+        /// </summary>
+        
+        public Task<Results> HandleAsync(TCommand command);
     }
 }
