@@ -22,6 +22,7 @@ namespace EventAssociation.Core.Application.DependencyInjection
                 services.AddScoped(intf, impl);
 
             services.Decorate<ICommandDispatcher, LoggingDispatcher>();
+            // Last in first out - Decorators runs in reverse order of registration
 
             return services;
         }
