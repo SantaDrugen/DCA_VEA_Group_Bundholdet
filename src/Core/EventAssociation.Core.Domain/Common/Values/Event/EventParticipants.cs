@@ -10,6 +10,8 @@ public class EventParticipants
 
     public int CurrentCount => _guests.Count;
 
+    public EventParticipants() {}
+
     public EventParticipants(int maxGuests)
     {
         MaxGuests = NumberOfGuests.FromInt(maxGuests).Value;

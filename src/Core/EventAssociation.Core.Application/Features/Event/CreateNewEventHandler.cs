@@ -26,7 +26,7 @@ namespace EventAssociation.Core.Application.Features.Event
             if (result.IsFailure)
                 errors.AddRange(result.Errors);
 
-            Results repoResult = await eventRepo.CreateAsync(result.Value);
+            Results repoResult = await eventRepo.AddAsync(result.Value);
 
             if (repoResult.IsFailure)
                 errors.AddRange(repoResult.Errors);

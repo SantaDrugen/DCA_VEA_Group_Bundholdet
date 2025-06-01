@@ -20,20 +20,22 @@ public class ParticipateInPublicEventHandler :
         _events = events; _guests = guests; _uow = uow;
     }
 
+    // Removed becasue we don't have guests.
+
     public async Task<Results> HandleAsync(ParticipateInPublicEventCommand cmd)
     {
         // load event & guest
-        var evtRes = await _events.GetByIdAsync(cmd.EventId);
-        var gstRes = await _guests.GetByIdAsync(cmd.GuestId);
+        //var evtRes = await _events.GetByIdAsync(cmd.EventId);
+        //var gstRes = await _guests.GetByIdAsync(cmd.GuestId);
 
-        var preCombine = Results.Combine(evtRes, gstRes);
-        if (preCombine.IsFailure) return Results.Failure(preCombine.Errors.ToArray());
+        //var preCombine = Results.Combine(evtRes, gstRes);
+        //if (preCombine.IsFailure) return Results.Failure(preCombine.Errors.ToArray());
 
         // business rule validations happen inside the aggregate
-        var regRes = evtRes.Value.RegisterParticipant(cmd.GuestId, DateTime.UtcNow);
-        if (regRes.IsFailure) return regRes;
+        //var regRes = evtRes.Value.RegisterParticipant(cmd.GuestId, DateTime.UtcNow);
+        //if (regRes.IsFailure) return regRes;
 
-        await _uow.SaveChangesAsync();
+        //await _uow.SaveChangesAsync();
         return Results.Success();
     }
 }

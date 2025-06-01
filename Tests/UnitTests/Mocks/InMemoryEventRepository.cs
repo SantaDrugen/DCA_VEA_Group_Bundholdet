@@ -11,104 +11,45 @@ namespace EventAssociation.Tests.Infrastructure.Repositories
         private readonly ConcurrentDictionary<EventId, VeaEvent> _store
             = new ConcurrentDictionary<EventId, VeaEvent>();
 
-        public Task<Results<VeaEvent>> CreateAsync(VeaEvent @event)
+        public Task<Results> AddAsync(VeaEvent aggregate)
         {
-            if (!_store.TryAdd(@event.Id, @event))
-                return Task.FromResult(Results<VeaEvent>.Failure(new Error("ID_ALREADY_EXISTS", "An event with the same Id already exists.")));
+            if (aggregate is null)
+                return Task.FromResult(Results.Failure(new Error("ARGUMENT_NULL", "Aggregate cannot be null.")));
 
-            return Task.FromResult(Results<VeaEvent>.Success(@event));
+            if (!_store.TryAdd(aggregate.Id, aggregate))
+                return Task.FromResult(Results.Failure(
+                    new Error("ID_ALREADY_EXISTS", $"An event with Id '{aggregate.Id.Value}' already exists.")
+                ));
+
+            return Task.FromResult(Results.Success());
         }
 
-        public Task<Results<VeaEvent>> GetByIdAsync(EventId id)
+        public Task<Results<VeaEvent>> GetAsync(EventId id)
         {
+            if (id is null)
+                return Task.FromResult(Results<VeaEvent>.Failure(
+                    new Error("ARGUMENT_NULL", "EventId cannot be null.")
+                ));
+
             if (_store.TryGetValue(id, out var existing))
                 return Task.FromResult(Results<VeaEvent>.Success(existing));
 
-            return Task.FromResult(Results<VeaEvent>.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
+            return Task.FromResult(Results<VeaEvent>.Failure(
+                new Error("ID_NOT_FOUND", $"Event with Id '{id.Value}' not found.")
+            ));
         }
 
-        public Task<Results> SetEventPrivate(EventId id)
+        public Task<Results> RemoveAsync(EventId id)
         {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                existing.SetVisibilityPrivate();
-                return Task.FromResult(Results.Success());
-            }
-            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
-        }
+            if (id is null)
+                return Task.FromResult(Results.Failure(new Error("ARGUMENT_NULL", "EventId cannot be null.")));
 
-        public Task<Results> SetEventPublic(EventId id)
-        {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                existing.SetVisibilityPublic();
-                return Task.FromResult(Results.Success());
-            }
-            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
-        }
+            if (!_store.TryRemove(id, out _))
+                return Task.FromResult(Results.Failure(
+                    new Error("ID_NOT_FOUND", $"Event with Id '{id.Value}' not found.")
+                ));
 
-        public Task<Results> SetEventStatusActive(EventId id)
-        {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                Results<EventStatus> result = existing.SetEventStatusActive();
-                if (result.IsFailure)
-                    return Task.FromResult(Results.Failure(result.Errors.ToArray()));
-                return Task.FromResult(Results.Success());
-            }
-            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
-        }
-
-        public Task<Results> SetEventStatusReady(EventId id)
-        {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                Results<EventStatus> result = existing.SetEventStatusReady();
-                if (result.IsFailure)
-                    return Task.FromResult(Results.Failure(result.Errors.ToArray()));
-                return Task.FromResult(Results.Success());
-            }
-            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
-        }
-
-        public Task<Results> UpdateEventDateTime(EventId id, EventDateTime dateTime)
-        {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                existing.SetDateTime(dateTime);
-                return Task.FromResult(Results.Success());
-            }
-            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
-        }
-
-        public Task<Results> UpdateEventDescription(EventId id, EventDescription newDescription)
-        {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                existing.SetDescription(newDescription.Value);
-                return Task.FromResult(Results.Success());
-            }
-            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
-        }
-
-        public Task<Results<NumberOfGuests>> UpdateEventMaxNumberOfGuests(EventId id, NumberOfGuests maxNumberOfGuests)
-        {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                existing.SetMaxGuests(maxNumberOfGuests.Value);
-                return Task.FromResult(Results<NumberOfGuests>.Success(maxNumberOfGuests));
-            }
-            return Task.FromResult(Results<NumberOfGuests>.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
-        }
-
-        public Task<Results> UpdateEventTitle(EventId id, EventTitle newTitle)
-        {
-            if (_store.TryGetValue(id, out var existing))
-            {
-                existing.SetTitle(newTitle.Value);
-                return Task.FromResult(Results.Success());
-            }
-            return Task.FromResult(Results.Failure(new Error("ID_NOT_FOUND", $"Event with Id '{id}' not found.")));
+            return Task.FromResult(Results.Success());
         }
     }
 }

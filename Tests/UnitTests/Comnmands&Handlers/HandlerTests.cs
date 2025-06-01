@@ -23,7 +23,7 @@ namespace UnitTests
 
             createdEvent = VeaEvent.CreateNewEvent().Value;
 
-            eventRepo.CreateAsync(createdEvent).Wait();
+            eventRepo.AddAsync(createdEvent);
 
             uow = A.Fake<IUnitOfWork>();
 

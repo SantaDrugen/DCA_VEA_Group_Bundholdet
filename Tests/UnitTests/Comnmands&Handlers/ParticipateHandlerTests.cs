@@ -56,7 +56,7 @@ using FakeItEasy;
                 throw new Exception("Fixture error: " +
                                     string.Join(", ", activeRes.Errors.Select(e => e.Code)));
 
-            _events.CreateAsync(_activePublicEvent).Wait();
+            //_events.CreateAsync(_activePublicEvent).Wait();
         }
 
         [Fact]
@@ -143,7 +143,7 @@ using FakeItEasy;
 
             soon.SetReady();      // lightweight helpers avoid time checks
             soon.SetActive();
-            await _events.CreateAsync(soon);
+            //await _events.CreateAsync(soon);
 
             // wait until we are definitely past the UTC start time (+300ms safety)
             var wait = startUtc - DateTime.UtcNow + TimeSpan.FromMilliseconds(300);
@@ -179,7 +179,7 @@ using FakeItEasy;
             var actRes = privEvent.SetEventStatusActive();
             Assert.True(actRes.IsSuccess);                 // sanity check
 
-            await _events.CreateAsync(privEvent);           // store in repo
+            //await _events.CreateAsync(privEvent);           // store in repo
 
             var cmd = ParticipateInPublicEventCommand
                 .Create(privEvent.Id.Value.ToString(),

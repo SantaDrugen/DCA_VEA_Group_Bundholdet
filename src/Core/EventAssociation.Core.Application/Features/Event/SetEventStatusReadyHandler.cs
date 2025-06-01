@@ -19,17 +19,30 @@ namespace EventAssociation.Core.Application.Features.Event
 
         public async Task<Results> HandleAsync(SetEventStatusReadyCommand command)
         {
-            Results<VeaEvent> eventResult = await eventRepo.GetByIdAsync(command.id);
+            List<Error> errors = new List<Error>();
+
+            Results<VeaEvent> eventResult = await eventRepo.GetAsync(command.id);
 
             if (eventResult.IsFailure)
-                return eventResult;
+                errors.AddRange(eventResult.Errors);
 
-            Results setEventStatusResult = await eventRepo.SetEventStatusReady(command.id);
+            var eventEntity = eventResult.Value;
 
-            if (setEventStatusResult.IsFailure)
-                return setEventStatusResult;
+            if (eventEntity is not null)
+            {
+                var updateResult = eventEntity.SetReady();
 
-            Results saveResult = await uow.SaveChangesAsync();
+                if (updateResult.IsFailure)
+                    errors.AddRange(updateResult.Errors);
+
+                var saveResult = await uow.SaveChangesAsync();
+
+                if (saveResult.IsFailure)
+                    errors.AddRange(saveResult.Errors);
+            }
+
+            if (errors.Any())
+                return Results.Failure(errors.ToArray());
 
             return Results.Success();
         }

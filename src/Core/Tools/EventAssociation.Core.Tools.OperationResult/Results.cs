@@ -15,6 +15,7 @@ public class Results
 
     public static Results Success() => new(true, new List<Error>());
     public static Results Failure(params Error[] errors) => new(false, errors.ToList());
+    public static Results Failure(List<Error> errors) => new(false, errors);
 
     public static Results Combine(params Results[] results)
     {

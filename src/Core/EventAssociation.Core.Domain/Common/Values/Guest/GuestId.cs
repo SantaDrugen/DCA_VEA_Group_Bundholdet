@@ -21,4 +21,11 @@ public sealed class GuestId
 
     public override bool Equals(object? obj) => obj is GuestId other && Value.Equals(other.Value);
     public override int GetHashCode() => Value.GetHashCode();
+
+    public static GuestId From(Guid id)
+    {
+        if (id == Guid.Empty)
+            throw new ArgumentException("Guest Id cannot be an empty GUID.", nameof(id));
+        return new GuestId(id);
+    }
 }

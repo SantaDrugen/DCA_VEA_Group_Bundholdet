@@ -21,20 +21,28 @@ namespace EventAssociation.Core.Application.Features.Event
         {
             List<Error> errors = new List<Error>();
 
-            Results<VeaEvent> result = await eventRepo.GetByIdAsync(command.id);
+            Results<VeaEvent> result = await eventRepo.GetAsync(command.id);
 
             if (result.IsFailure)
-                return Results.Failure(result.Errors.ToArray());
+                errors.AddRange(result.Errors);
 
-            Results repoResult = await eventRepo.SetEventPrivate(command.id);
+            var eventEntity = result.Value;
 
-            if (repoResult.IsFailure)
-                errors.AddRange(repoResult.Errors);
+            if (eventEntity is not null)
+            {
+                var updateResult = eventEntity.SetVisibilityPrivate();
+
+                if (updateResult.IsFailure)
+                    errors.AddRange(updateResult.Errors);
+
+                var saveResult = await uow.SaveChangesAsync();
+
+                if (saveResult.IsFailure)
+                    errors.AddRange(saveResult.Errors);
+            }
 
             if (errors.Any())
                 return Results.Failure(errors.ToArray());
-
-            await uow.SaveChangesAsync();
 
             return Results.Success();
         }

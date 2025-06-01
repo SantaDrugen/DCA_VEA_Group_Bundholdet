@@ -20,20 +20,28 @@ namespace EventAssociation.Core.Application.Features.Event
         {
             List<Error> errors = new List<Error>();
 
-            Results getResult = await eventRepo.GetByIdAsync(command.id);
+            var getResult = await eventRepo.GetAsync(command.id);
 
             if (getResult.IsFailure)
-                return Results.Failure(getResult.Errors.ToArray());
+                errors.AddRange(getResult.Errors);
 
-            Results updateResult = await eventRepo.UpdateEventDescription(command.id, command.newDescription);
+            var eventEntity = getResult.Value;
 
-            if (updateResult.IsFailure)
-                errors.AddRange(updateResult.Errors);
+            if (eventEntity is not null)
+            {
+                var updateResult = eventEntity.SetDescription(command.newDescription.Value);
+
+                if (updateResult.IsFailure)
+                    errors.AddRange(updateResult.Errors);
+
+                var saveResult = await uow.SaveChangesAsync();
+
+                if (saveResult.IsFailure)
+                    errors.AddRange(saveResult.Errors);
+            }
 
             if (errors.Any())
                 return Results.Failure(errors.ToArray());
-
-            await uow.SaveChangesAsync();
 
             return Results.Success();
         }

@@ -41,5 +41,10 @@ namespace EventAssociation.Core.Domain.Common.Values.Event
         {
             return Value.GetHashCode();
         }
+
+        public static EventId From(Guid id)
+        {
+            return new EventId { Value = id };
+        }
     }
 }
