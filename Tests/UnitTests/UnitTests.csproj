@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Core.Tools.ObjectMapper\Core.Tools.ObjectMapper.csproj" />
       <ProjectReference Include="..\..\src\Core\EventAssociation.Core.Application\EventAssociation.Core.Application.csproj" />
       <ProjectReference Include="..\..\src\Core\EventAssociation.Core.Domain\EventAssociation.Core.Domain.csproj" />
     </ItemGroup>
