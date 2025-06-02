@@ -1,13 +1,18 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Infrastructure.SqlliteDmPersistence.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjection
 {
     public static class DependencyRegistration
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructureServices(
+            this IServiceCollection services,
+            IConfiguration configuration) // We need configuration to get the connection string
         {
             // Auto-register all repository implementations - great for extendibility
             var asm = Assembly.GetExecutingAssembly();
@@ -25,7 +30,10 @@ namespace EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjecti
 
             // These are one-off services, so we register them explicitly
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<VeaDbContext>();
+            services.AddDbContext<VeaDbContext>(options =>
+            {
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+            });
 
             return services;
         }
