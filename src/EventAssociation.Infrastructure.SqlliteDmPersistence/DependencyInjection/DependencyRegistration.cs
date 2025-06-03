@@ -30,6 +30,16 @@ namespace EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjecti
 
             // These are one-off services, so we register them explicitly
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Note - if the connection fails, add a connection string in appsettings.json
+            // It should look like this:
+            // "ConnectionStrings": {
+            //     "DefaultConnection": "Data Source=*some string here*"
+            // }
+            // 
+            // Given the project is only a dummy, this may seem like overkill. But in production,
+            // sensitive info like connection strings will be fetched from a keyvault at runtime,
+            // and then it would be set up in the configuration.
             services.AddDbContext<VeaDbContext>(options =>
             {
                 options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));

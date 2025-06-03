@@ -26,11 +26,11 @@ namespace EventAssociation.Core.Application.Features.Event
             if (eventResult.IsFailure)
                 errors.AddRange(eventResult.Errors);
 
-            VeaEvent existingEvent = eventResult.Value;
+            VeaEvent eventEntity = eventResult.Value;
 
-            if (existingEvent is not null)
+            if (eventEntity is not null)
             {
-                var updateResult = existingEvent.SetMaxGuests(command.MaxNumberOfGuests.Value);
+                var updateResult = eventEntity.SetMaxGuests(command.MaxNumberOfGuests.Value);
 
                 if (updateResult.IsFailure)
                     errors.AddRange(updateResult.Errors);
@@ -44,7 +44,9 @@ namespace EventAssociation.Core.Application.Features.Event
             if (errors.Any())
                 return Results.Failure(errors);
 
-            return Results.Success();
+            var updatedEventResult = Results<VeaEvent>.Success(eventEntity);
+
+            return updatedEventResult;
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using EventAssociation.Core.Domain.Aggregates.Guest;
-using EventAssociation.Core.Domain.Common.Values.Guest;
+﻿using EventAssociation.Core.Domain.Common.Values.Guest;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using VeaGuest = EventAssociation.Core.Domain.Aggregates.Guest.VeaGuest;
 
 namespace EventAssociation.Infrastructure.SqlliteDmPersistence.Context.EntityConfigurations
 {

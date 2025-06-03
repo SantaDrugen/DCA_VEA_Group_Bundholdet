@@ -44,7 +44,9 @@ namespace EventAssociation.Core.Application.Features.Event
             if (errors.Any())
                 return Results.Failure(errors.ToArray());
 
-            return Results.Success();
+            var updatedEventResult = Results<VeaEvent>.Success(eventEntity);
+
+            return updatedEventResult;
         }
     }
 }
