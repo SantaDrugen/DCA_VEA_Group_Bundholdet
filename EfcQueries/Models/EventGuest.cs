@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
+
+public partial class EventGuest
+{
+    public string GuestId { get; set; } = null!;
+
+    public string EventId { get; set; } = null!;
+
+    public virtual VeaEvent Event { get; set; } = null!;
+}

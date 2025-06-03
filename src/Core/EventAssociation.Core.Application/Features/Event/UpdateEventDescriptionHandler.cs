@@ -1,4 +1,5 @@
 ﻿using EventAssociation.Core.Application.Commands.Event;
+using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
