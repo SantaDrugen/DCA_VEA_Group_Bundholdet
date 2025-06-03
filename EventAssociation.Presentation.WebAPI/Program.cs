@@ -1,4 +1,6 @@
 using Core.Tools.ObjectMapper;
+using EventAssociation.Core.Application.DependencyInjection;
+using EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IObjectMapper, ObjectMapper>();
-
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 //    (Later) We will call our own extension methods here, such as:
 //    builder.Services.AddCommandHandlers(); // from the Application layer
