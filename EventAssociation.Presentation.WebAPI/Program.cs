@@ -1,15 +1,9 @@
 using EventAssociation.Core.Application.DependencyInjection;
-using EventAssociation.Core.Domain.ReositoryInterfaces; // for IEventRepository, IUnitOfWork
-using EventAssociation.Infrastructure.SqlliteDmPersistence; // for VeaDbContext, repository implementations
-using Core.Tools.ObjectMapper;
-using EventAssociation.Core.Domain.Aggregates.Event;
-using EventAssociation.Core.Domain.Common;
 using EventAssociation.Infrastructure.SqlliteDmPersistence.Context;
-using EventAssociation.Infrastructure.SqlliteDmPersistence.Repositories;
-using EventAssociation.Presentation.WebAPI.EndPoints.Event.DTOs;
-using EventAssociation.Presentation.WebAPI.Mapping; // for IObjectMapper, ObjectMapper
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjection;
+using EventAssociation.Presentation.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +13,9 @@ builder.Services.AddControllers();
 // Register Application layer services (ICommandDispatcher + all ICommandHandler<>) 
 builder.Services.AddApplicationServices();
 
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// builder.Services.AddQueryServices();  -- remove comment after pushed to master -- method only exists in master branch
 
 // 3) Register Presentation services (object‐mapper + custom mappings)
 builder.Services.AddPresentationServices();
@@ -27,15 +23,6 @@ builder.Services.AddPresentationServices();
 builder.Services.AddDbContext<VeaDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-
-// Register the repository and unit-of-work from Infrastructure
-builder.Services.AddScoped<IEventRepository, EventRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-// Register the ObjectMapper (Core.Tools.ObjectMapper)
-builder.Services.AddScoped<IObjectMapper, ObjectMapper>();
-builder.Services.AddScoped<IMapping<VeaEvent, EventDto>, VeaEventToEventDtoMapping>();
-
 
 // Add Swagger/OpenAPI (so we can hit endpoints via Swagger UI)
 builder.Services.AddEndpointsApiExplorer();
