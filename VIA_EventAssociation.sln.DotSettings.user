@@ -4,5 +4,6 @@
   &lt;Or&gt;&#xD;
     &lt;ProjectFile&gt;0B67FAE9-CEDF-41A0-9941-CCA8FFFF86C8/d:ObjectMapper/f:ObjectMapperCustomTests.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;0B67FAE9-CEDF-41A0-9941-CCA8FFFF86C8/d:ObjectMapper/f:ObjectMapperDefaultTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;0B67FAE9-CEDF-41A0-9941-CCA8FFFF86C8/d:Endpoint/f:ApiEndpointsIntegrationTests.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

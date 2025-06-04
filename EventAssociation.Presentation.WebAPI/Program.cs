@@ -11,11 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Register Application layer services (ICommandDispatcher + all ICommandHandler<>) 
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
-builder.Services.AddInfrastructureServices(builder.Configuration);
-
-// builder.Services.AddQueryServices();  -- remove comment after pushed to master -- method only exists in master branch
+//builder.Services.AddQueryServices();
 
 // 3) Register Presentation services (object‐mapper + custom mappings)
 builder.Services.AddPresentationServices();
@@ -41,8 +40,13 @@ if (app.Environment.IsDevelopment())
 }
 
 // Standard middleware pipeline
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+namespace EventAssociation.Presentation.WebAPI
+{
+    public partial class Program { }
+}
