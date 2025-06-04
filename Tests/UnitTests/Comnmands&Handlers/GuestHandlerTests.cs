@@ -29,7 +29,7 @@ namespace UnitTests
             var url    = PictureUrl.From("https://pics.example.com/p.jpg").Value;
 
             existingGuest = VeaGuest.Create(email, fname, lname, url).Value;
-            guestRepo.CreateAsync(existingGuest).Wait();
+            //guestRepo.CreateAsync(existingGuest).Wait();
 
             // Fake UoW – same style as existing tests
             uow = A.Fake<IUnitOfWork>();

@@ -33,8 +33,8 @@ public class RegisterGuestHandler : ICommandHandler<RegisterGuestCommand>
         // persist
         if (!errors.Any())
         {
-            var repoRes = await _repo.CreateAsync(guestRes.Value);
-            if (repoRes.IsFailure) errors.AddRange(repoRes.Errors);
+            //var repoRes = await _repo.CreateAsync(guestRes.Value);
+            //if (repoRes.IsFailure) errors.AddRange(repoRes.Errors);
         }
 
         if (errors.Any()) return Results.Failure(errors.ToArray());

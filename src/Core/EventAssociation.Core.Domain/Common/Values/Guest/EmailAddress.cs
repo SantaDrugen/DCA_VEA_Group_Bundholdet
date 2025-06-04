@@ -28,5 +28,10 @@ public sealed class EmailAddress
             : Results<EmailAddress>.Success(new EmailAddress(raw!));
     }
 
+    public override bool Equals(object? obj)
+    {
+        return obj is EmailAddress other && Value.Equals(other.Value, StringComparison.OrdinalIgnoreCase);
+    }
+
     public override string ToString() => Value;
 }
