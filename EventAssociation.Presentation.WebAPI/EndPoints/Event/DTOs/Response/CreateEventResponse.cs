@@ -1,6 +1,8 @@
-﻿namespace EventAssociation.Presentation.WebAPI.EndPoints.Event;
+﻿using EventAssociation.Presentation.WebAPI.EndPoints.Event.DTOs;
+
+namespace EventAssociation.Presentation.WebAPI.EndPoints.Event.DTOs.Response;
 
 public class CreateEventResponse
 {
-    public string EventId { get; set; } = string.Empty;
+    public EventDto eventDto { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿namespace EventAssociation.Presentation.WebAPI.Endpoints.Event;
+﻿namespace EventAssociation.Presentation.WebAPI.EndPoints.Event.DTOs.Request;
 
 public class SetEventMaxGuestsRequest
 {

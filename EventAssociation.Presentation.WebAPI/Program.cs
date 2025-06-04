@@ -1,11 +1,13 @@
 using EventAssociation.Core.Application.DependencyInjection;
-using EventAssociation.Core.Tools.OperationResult;      // for OperationResult types (if ever needed here)
 using EventAssociation.Core.Domain.ReositoryInterfaces; // for IEventRepository, IUnitOfWork
 using EventAssociation.Infrastructure.SqlliteDmPersistence; // for VeaDbContext, repository implementations
 using Core.Tools.ObjectMapper;
+using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Infrastructure.SqlliteDmPersistence.Context;
-using EventAssociation.Infrastructure.SqlliteDmPersistence.Repositories; // for IObjectMapper, ObjectMapper
+using EventAssociation.Infrastructure.SqlliteDmPersistence.Repositories;
+using EventAssociation.Presentation.WebAPI.EndPoints.Event.DTOs;
+using EventAssociation.Presentation.WebAPI.Mapping; // for IObjectMapper, ObjectMapper
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -27,6 +29,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Register the ObjectMapper (Core.Tools.ObjectMapper)
 builder.Services.AddScoped<IObjectMapper, ObjectMapper>();
+builder.Services.AddScoped<IMapping<VeaEvent, EventDto>, VeaEventToEventDtoMapping>();
+
 
 // Add Swagger/OpenAPI (so we can hit endpoints via Swagger UI)
 builder.Services.AddEndpointsApiExplorer();
