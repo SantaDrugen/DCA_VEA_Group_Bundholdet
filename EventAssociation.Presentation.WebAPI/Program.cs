@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjection;
 using EventAssociation.Presentation.WebAPI.Extensions;
+using EfcQueries.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
-//builder.Services.AddQueryServices();
+builder.Services.AddQueryServices(builder.Configuration);
 
 // 3) Register Presentation services (object‐mapper + custom mappings)
 builder.Services.AddPresentationServices();

@@ -1,11 +1,9 @@
 ﻿using System.Globalization;
-using System.Threading;
 using EfcQueries.Queries;
 using EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
 using Microsoft.EntityFrameworkCore;
 using QueryContracts.Contracts;
 using QueryContracts.DTOs;
-using QueryContracts.Queries;
 
 namespace EfcQueries.QueryHandlers
 {

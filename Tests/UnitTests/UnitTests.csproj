@@ -20,13 +20,10 @@
     </ItemGroup>
 
     <ItemGroup>
-<<<<<<< HEAD
       <ProjectReference Include="..\..\EfcQueries\EfcQueries.csproj" />
       <ProjectReference Include="..\..\QueryContracts\QueryContracts.csproj" />
-=======
       <ProjectReference Include="..\..\Core.Tools.ObjectMapper\Core.Tools.ObjectMapper.csproj" />
       <ProjectReference Include="..\..\EventAssociation.Presentation.WebAPI\EventAssociation.Presentation.WebAPI.csproj" />
->>>>>>> WebAPI
       <ProjectReference Include="..\..\src\Core\EventAssociation.Core.Application\EventAssociation.Core.Application.csproj" />
       <ProjectReference Include="..\..\src\Core\EventAssociation.Core.Domain\EventAssociation.Core.Domain.csproj" />
       <ProjectReference Include="..\..\src\Core\Tools\EventAssociation.Core.Tools.OperationResult\EventAssociation.Core.Tools.OperationResult.csproj" />
