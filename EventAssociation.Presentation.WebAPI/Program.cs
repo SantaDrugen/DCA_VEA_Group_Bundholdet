@@ -19,6 +19,11 @@ builder.Services.AddControllers();
 // Register Application layer services (ICommandDispatcher + all ICommandHandler<>) 
 builder.Services.AddApplicationServices();
 
+builder.Services.AddInfrastructureServices();
+
+// 3) Register Presentation services (object‐mapper + custom mappings)
+builder.Services.AddPresentationServices();
+
 builder.Services.AddDbContext<VeaDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );

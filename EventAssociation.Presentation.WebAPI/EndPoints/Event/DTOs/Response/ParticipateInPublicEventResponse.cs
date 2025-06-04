@@ -2,5 +2,5 @@
 
 public class ParticipateInPublicEventResponse
 {
-    public int CurrentParticipants { get; set; }
+    public EventDto eventDto { get; set; }
 }

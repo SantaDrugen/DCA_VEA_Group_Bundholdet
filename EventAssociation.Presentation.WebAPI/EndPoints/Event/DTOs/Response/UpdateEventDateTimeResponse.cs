@@ -2,5 +2,5 @@
 
 public class UpdateEventDateTimeResponse
 {
-    public DateTimeOffset UpdatedEventDateTime { get; set; }
+    public EventDto? eventDto { get; set; }
 }

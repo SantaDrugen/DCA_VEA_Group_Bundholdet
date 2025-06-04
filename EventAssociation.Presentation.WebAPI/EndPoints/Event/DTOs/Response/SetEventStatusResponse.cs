@@ -2,5 +2,5 @@
 
 public class SetEventStatusResponse
 {
-    public string UpdatedStatus { get; set; } = string.Empty;
+    public EventDto? eventDto { get; set; }
 }

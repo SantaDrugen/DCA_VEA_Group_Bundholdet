@@ -2,6 +2,7 @@
 
 public class UpdateEventDateTimeRequest
 {
-    public string EventId { get; set; } = string.Empty;
-    public DateTimeOffset NewEventDateTime { get; set; }
+    public string EventId { get; set; }
+    public DateTime NewEventDateTimeStart { get; set; }
+    public DateTime NewEventDateTimeEnd { get; set; }
 }

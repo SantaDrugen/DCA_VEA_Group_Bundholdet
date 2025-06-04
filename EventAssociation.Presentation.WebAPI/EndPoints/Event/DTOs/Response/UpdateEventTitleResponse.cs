@@ -2,5 +2,5 @@
 
 public class UpdateEventTitleResponse
 {
-    public string UpdatedTitle { get; set; } = string.Empty;
+    public EventDto eventDto { get; set; }
 }

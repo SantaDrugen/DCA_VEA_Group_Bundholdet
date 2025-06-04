@@ -2,5 +2,5 @@
 
 public class GetEventByIdResponse
 {
-    public EventDto Event { get; set; } = new EventDto(); 
+    public EventDto eventDto { get; set; } 
 }
