@@ -13,7 +13,7 @@ namespace EfcQueries.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration) // We need configuration to get the connection string
         {
-            // Auto-register all query handlers - great for extendibility
+            // Auto-register all query handlers
             var asm = typeof(QueryDependencyRegistration).Assembly;
             var queryHandlerTypes = asm.GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith("QueryHandler"))

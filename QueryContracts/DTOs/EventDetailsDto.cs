@@ -10,6 +10,6 @@
         bool IsPublic,
         int CurrentAttendeeCount,
         int? MaxGuests,
-        IReadOnlyList<GuestDto> Guests
+        IReadOnlyList<GuestDto>? Guests
     );
 }
