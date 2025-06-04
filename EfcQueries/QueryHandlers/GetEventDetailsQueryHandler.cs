@@ -34,7 +34,7 @@ namespace EfcQueries.QueryHandlers
             int? maxGuests = eventEntity.MaxGuests;
 
             var Skip = query.Skip < 0 ? 0 : query.Skip;
-            var Take = query.Take <= 0 ? 10 : query.Take; // Default to 10 if Take is not specified or invalid
+            var Take = query.Take <= 0 ? 9 : query.Take; // Default to 10 if Take is not specified or invalid
 
             if (query.Skip + query.Take > currentAttendeeCount)
             {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
+﻿namespace EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
 
 public partial class EventGuest
 {
