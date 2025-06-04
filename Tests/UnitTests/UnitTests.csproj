@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.2" />
         <PackageReference Include="FakeItEasy" Version="8.3.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.5" />
         <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
@@ -19,8 +20,13 @@
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
       <ProjectReference Include="..\..\EfcQueries\EfcQueries.csproj" />
       <ProjectReference Include="..\..\QueryContracts\QueryContracts.csproj" />
+=======
+      <ProjectReference Include="..\..\Core.Tools.ObjectMapper\Core.Tools.ObjectMapper.csproj" />
+      <ProjectReference Include="..\..\EventAssociation.Presentation.WebAPI\EventAssociation.Presentation.WebAPI.csproj" />
+>>>>>>> WebAPI
       <ProjectReference Include="..\..\src\Core\EventAssociation.Core.Application\EventAssociation.Core.Application.csproj" />
       <ProjectReference Include="..\..\src\Core\EventAssociation.Core.Domain\EventAssociation.Core.Domain.csproj" />
       <ProjectReference Include="..\..\src\Core\Tools\EventAssociation.Core.Tools.OperationResult\EventAssociation.Core.Tools.OperationResult.csproj" />

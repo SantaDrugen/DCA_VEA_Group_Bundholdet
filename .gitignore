@@ -40,3 +40,4 @@ riderModule.iml
 .vs/VIA_EventAssociation/v17/DocumentLayout.json
 .vs/VIA_EventAssociation/v17/TestStore/0/010.testlog
 .vs/VIA_EventAssociation/v17/TestStore/0/testlog.manifest
+*.vsidx

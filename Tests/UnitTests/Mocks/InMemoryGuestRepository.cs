@@ -10,6 +10,11 @@ public sealed class InMemoryGuestRepository : IGuestRepository
 {
     private readonly ConcurrentDictionary<string, VeaGuest> _store = new();
 
+    public Task<Results> AddAsync(VeaGuest aggregate)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Results<VeaGuest>> CreateAsync(VeaGuest guest)
     {
         if (!_store.TryAdd(guest.Email.Value, guest))
@@ -17,6 +22,11 @@ public sealed class InMemoryGuestRepository : IGuestRepository
                 Results<VeaGuest>.Failure(new Error("EMAIL_EXISTS", "E‑mail already registered.")));
 
         return Task.FromResult(Results<VeaGuest>.Success(guest));
+    }
+
+    public Task<Results<VeaGuest>> GetAsync(GuestId id)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<Results<VeaGuest>> GetByEmailAsync(EmailAddress email) =>
@@ -31,4 +41,8 @@ public sealed class InMemoryGuestRepository : IGuestRepository
             : Task.FromResult(Results<VeaGuest>.Failure(
                 new Error("NOT_FOUND", $"No guest with id {id.Value}.")));
 
+    public Task<Results> RemoveAsync(GuestId id)
+    {
+        throw new NotImplementedException();
+    }
 }
