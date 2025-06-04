@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\QueryContracts\QueryContracts.csproj" />
+    <ProjectReference Include="..\src\EventAssociation.Infrastructure.SqlliteDmPersistence\EventAssociation.Infrastructure.SqlliteDmPersistence.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,6 +3,7 @@
     public record GuestDto(
         string GuestId,
         string FullName,
-        string ProfilePictureUrl
+        string? ProfilePictureUrl,
+        string Email
     );
 }

@@ -25,10 +25,33 @@ namespace EfcQueries.QueryHandlers
 
             bool isPublic = eventEntity.Visibility.HasValue && eventEntity.Visibility.Value == 1;
 
-            int currentAttendeeCount = 0; //Not implemented
+            var guestQuery = from eg in _readContext.EventGuests
+                             join g in _readContext.VeaGuests on eg.GuestId equals g.Id
+                             where eg.EventId == eventEntity.Id
+                             select g;
+
+            int currentAttendeeCount = await guestQuery.CountAsync();
             int? maxGuests = eventEntity.MaxGuests;
 
-            var pagedGuests = new List<GuestDto>(); //Not implemented
+            var Skip = query.Skip < 0 ? 0 : query.Skip;
+            var Take = query.Take <= 0 ? 10 : query.Take; // Default to 10 if Take is not specified or invalid
+
+            if (query.Skip + query.Take > currentAttendeeCount)
+            {
+                Take = Math.Max(0, currentAttendeeCount - Skip);
+            }
+
+            var pagedGuests = await guestQuery
+                .OrderBy(g => g.FirstName)
+                .Skip(Skip)
+                .Take(Take)
+                .Select(g => new GuestDto(
+                    g.Id,
+                    g.FirstName + " " + g.LastName,
+                    g.PictureUrl,
+                    g.Email
+                ))
+                .ToListAsync();
 
             return new EventDetailsDto(
                 EventId:                eventEntity.Id,
