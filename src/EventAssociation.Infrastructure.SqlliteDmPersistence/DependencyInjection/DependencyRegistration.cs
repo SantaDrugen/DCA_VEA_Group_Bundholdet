@@ -14,6 +14,11 @@ namespace EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjecti
             this IServiceCollection services,
             IConfiguration configuration) // We need configuration to get the connection string
         {
+            services.AddDbContext<VeaDbContext>(options =>
+            {
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+            });
+
             // Auto-register all repository implementations - great for extendibility
             var asm = Assembly.GetExecutingAssembly();
             var repositoryTypes = asm.GetTypes()
@@ -40,10 +45,6 @@ namespace EventAssociation.Infrastructure.SqlliteDmPersistence.DependencyInjecti
             // Given the project is only a dummy, this may seem like overkill. But in production,
             // sensitive info like connection strings will be fetched from a keyvault at runtime,
             // and then it would be set up in the configuration.
-            services.AddDbContext<VeaDbContext>(options =>
-            {
-                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
-            });
 
             return services;
         }
