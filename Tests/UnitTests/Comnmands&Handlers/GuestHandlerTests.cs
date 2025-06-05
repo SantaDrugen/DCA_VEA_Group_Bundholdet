@@ -1,13 +1,13 @@
 ﻿using EventAssociation.Core.Application.Commands.Guest;
-using EventAssociation.Core.Application.Features.Guest;
+using EventAssociation.Core.Application.Handlers.Guest;
 using EventAssociation.Core.Domain.Aggregates.Guest;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.Common.Values.Guest;
-using EventAssociation.Core.Domain.RepositoryInterfaces;
+using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
-using EventAssociation.Tests.Infrastructure.Repositories;
 using FakeItEasy;
 using FakeItEasy.Core;
+using UnitTests.Mocks;
 
 namespace UnitTests
 {

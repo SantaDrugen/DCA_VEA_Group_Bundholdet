@@ -1,5 +1,4 @@
 ﻿using EventAssociation.Core.Application.Dispatch;
-using EventAssociation.Core.Application.Features;
 using EventAssociation.Core.Tools.OperationResult;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;

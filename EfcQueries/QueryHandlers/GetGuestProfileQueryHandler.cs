@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using EfcQueries.Models;
 using EfcQueries.Queries;
-using EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
 using Microsoft.EntityFrameworkCore;
 using QueryContracts.Contracts;
 using QueryContracts.DTOs;

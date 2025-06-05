@@ -1,36 +1,37 @@
 ﻿using EventAssociation.Core.Application.Commands.Event;
+using EventAssociation.Core.Application.Handlers;
 using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Features.Event
+namespace EventAssociation.Core.Application.Handlers.Event
 {
-    public class UpdateEventTitleHandler : ICommandHandler<UpdateEventTitleCommand>
+    public class SetEventPublicHandler : ICommandHandler<SetEventPublicCommand>
     {
         private readonly IEventRepository eventRepo;
         private readonly IUnitOfWork uow;
 
-        public UpdateEventTitleHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        public SetEventPublicHandler(IEventRepository repo, IUnitOfWork work)
         {
-            this.eventRepo = eventRepo;
-            this.uow = uow;
+            eventRepo = repo;
+            uow = work;
         }
 
-        public async Task<Results> HandleAsync(UpdateEventTitleCommand command)
+        public async Task<Results> HandleAsync(SetEventPublicCommand command)
         {
             List<Error> errors = new List<Error>();
 
-            var eventResult = await eventRepo.GetAsync(command.id);
+            Results<VeaEvent> getResult = await eventRepo.GetAsync(command.id);
 
-            if (eventResult.IsFailure)
-                errors.AddRange(eventResult.Errors);
+            if (getResult.IsFailure)
+                errors.AddRange(getResult.Errors);
 
-            var eventEntity = eventResult.Value;
+            var eventEntity = getResult.Value;
 
             if (eventEntity is not null)
             {
-                var updateResult = eventEntity.SetTitle(command.newTtitle.Value);
+                var updateResult = eventEntity.SetVisibilityPublic();
 
                 if (updateResult.IsFailure)
                     errors.AddRange(updateResult.Errors);

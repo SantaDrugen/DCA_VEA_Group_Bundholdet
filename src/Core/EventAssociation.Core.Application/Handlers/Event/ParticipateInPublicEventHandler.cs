@@ -1,18 +1,17 @@
 ﻿using EventAssociation.Core.Application.Commands.Event;
-using EventAssociation.Core.Application.Features;
+using EventAssociation.Core.Application.Handlers;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
-using EventAssociation.Core.Domain.RepositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Features.Event;
+namespace EventAssociation.Core.Application.Handlers.Event;
 
 public class ParticipateInPublicEventHandler :
     ICommandHandler<ParticipateInPublicEventCommand>
 {
-    private readonly IEventRepository  _events;
-    private readonly IGuestRepository  _guests;
-    private readonly IUnitOfWork       _uow;
+    private readonly IEventRepository _events;
+    private readonly IGuestRepository _guests;
+    private readonly IUnitOfWork _uow;
 
     public ParticipateInPublicEventHandler(
         IEventRepository events, IGuestRepository guests, IUnitOfWork uow)

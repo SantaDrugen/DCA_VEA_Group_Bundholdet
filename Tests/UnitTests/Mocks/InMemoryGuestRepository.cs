@@ -1,10 +1,10 @@
 ﻿using System.Collections.Concurrent;
 using EventAssociation.Core.Domain.Aggregates.Guest;
 using EventAssociation.Core.Domain.Common.Values.Guest;
-using EventAssociation.Core.Domain.RepositoryInterfaces;
+using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Tests.Infrastructure.Repositories;
+namespace UnitTests.Mocks;
 
 public sealed class InMemoryGuestRepository : IGuestRepository
 {
@@ -34,7 +34,7 @@ public sealed class InMemoryGuestRepository : IGuestRepository
             ? Task.FromResult(Results<VeaGuest>.Success(g))
             : Task.FromResult(Results<VeaGuest>.Failure(
                 new Error("NOT_FOUND", $"No guest with e‑mail {email}.")));
-    
+
     public Task<Results<VeaGuest>> GetByIdAsync(GuestId id) =>
         _store.Values.FirstOrDefault(g => g.Id.Equals(id)) is { } g
             ? Task.FromResult(Results<VeaGuest>.Success(g))

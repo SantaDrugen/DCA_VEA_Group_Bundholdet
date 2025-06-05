@@ -1,4 +1,4 @@
-﻿namespace EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
+﻿namespace EfcQueries.Models;
 
 public partial class EventGuest
 {

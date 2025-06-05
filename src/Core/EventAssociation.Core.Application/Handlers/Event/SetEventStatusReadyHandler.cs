@@ -1,36 +1,37 @@
 ﻿using EventAssociation.Core.Application.Commands.Event;
+using EventAssociation.Core.Application.Handlers;
 using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Features.Event
+namespace EventAssociation.Core.Application.Handlers.Event
 {
-    public class SetEventPrivateHandler : ICommandHandler<SetEventPrivateCommand>
+    public class SetEventStatusReadyHandler : ICommandHandler<SetEventStatusReadyCommand>
     {
         private readonly IEventRepository eventRepo;
         private readonly IUnitOfWork uow;
 
-        public SetEventPrivateHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        public SetEventStatusReadyHandler(IEventRepository eventRepo, IUnitOfWork uow)
         {
             this.eventRepo = eventRepo;
             this.uow = uow;
         }
 
-        public async Task<Results> HandleAsync(SetEventPrivateCommand command)
+        public async Task<Results> HandleAsync(SetEventStatusReadyCommand command)
         {
             List<Error> errors = new List<Error>();
 
-            Results<VeaEvent> result = await eventRepo.GetAsync(command.id);
+            Results<VeaEvent> eventResult = await eventRepo.GetAsync(command.id);
 
-            if (result.IsFailure)
-                errors.AddRange(result.Errors);
+            if (eventResult.IsFailure)
+                errors.AddRange(eventResult.Errors);
 
-            var eventEntity = result.Value;
+            var eventEntity = eventResult.Value;
 
             if (eventEntity is not null)
             {
-                var updateResult = eventEntity.SetVisibilityPrivate();
+                var updateResult = eventEntity.SetReady();
 
                 if (updateResult.IsFailure)
                     errors.AddRange(updateResult.Errors);

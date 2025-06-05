@@ -1,5 +1,5 @@
 ﻿using EventAssociation.Core.Application.Dispatch;
-using EventAssociation.Core.Application.Features;
+using EventAssociation.Core.Application.Handlers;
 using EventAssociation.Core.Tools.OperationResult;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -46,7 +46,5 @@ namespace UnitTests.Dispatcher
             await Assert.ThrowsAsync<InvalidOperationException>(
                 () => dispatcher.DispatchAsync(new TestCommand()));
         }
-
-
     }
 }

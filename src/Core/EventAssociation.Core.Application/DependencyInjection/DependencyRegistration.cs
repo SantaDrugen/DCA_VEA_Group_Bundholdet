@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using EventAssociation.Core.Application.Dispatch;
-using EventAssociation.Core.Application.Features;
+using EventAssociation.Core.Application.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventAssociation.Core.Application.DependencyInjection
@@ -22,6 +22,7 @@ namespace EventAssociation.Core.Application.DependencyInjection
                 services.AddScoped(intf, impl);
 
             services.Decorate<ICommandDispatcher, LoggingDispatcher>();
+            // services.Decorate<ICommandDispatcher, SomeOtherDecorator>();
             // Last in first out - Decorators runs in reverse order of registration
 
             return services;

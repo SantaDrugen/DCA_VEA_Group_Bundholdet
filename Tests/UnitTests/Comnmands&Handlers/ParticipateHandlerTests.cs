@@ -1,14 +1,14 @@
 ﻿using EventAssociation.Core.Application.Commands.Event;
-using EventAssociation.Core.Application.Features.Event;
+using EventAssociation.Core.Application.Handlers.Event;
 using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Aggregates.Guest;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.Common.Values.Guest;
 using EventAssociation.Core.Tools.OperationResult;
-using EventAssociation.Tests.Infrastructure.Repositories;
 using FakeItEasy;
+using UnitTests.Mocks;
 
- namespace UnitTests
+namespace UnitTests
 {
     public class ParticipateHandlerTests
     {

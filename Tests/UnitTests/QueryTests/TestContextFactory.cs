@@ -1,5 +1,5 @@
-﻿using EventAssociation.Infrastructure.SqlliteDmPersistence.Context;
-using EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
+﻿using EfcQueries.Models;
+using EventAssociation.Infrastructure.SqlliteDmPersistence.Context;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,17 +20,6 @@ namespace UnitTests.QueryTests
 
             _keepAliveConnection = new SqliteConnection("DataSource=:memory:");
             _keepAliveConnection.Open();
-        }
-
-        public static VeaDbContext CreateWriteContext()
-        {
-            var options = new DbContextOptionsBuilder<VeaDbContext>()
-                .UseSqlite(_keepAliveConnection)
-                .Options;
-
-            var writeCtx = new VeaDbContext(options);
-            writeCtx.Database.EnsureCreated();
-            return writeCtx;
         }
 
         public static VeadatabaseProductionContext CreateReadContext()

@@ -1,21 +1,21 @@
 ﻿using EventAssociation.Core.Application.Commands.Guest;
-using EventAssociation.Core.Application.Features;               // ICommandHandler
+using EventAssociation.Core.Application.Handlers;
 using EventAssociation.Core.Domain.Aggregates.Guest;
 using EventAssociation.Core.Domain.Common;                      // IUnitOfWork
-using EventAssociation.Core.Domain.RepositoryInterfaces;
+using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Features.Guest;
+namespace EventAssociation.Core.Application.Handlers.Guest;
 
 public class RegisterGuestHandler : ICommandHandler<RegisterGuestCommand>
 {
     private readonly IGuestRepository _repo;
-    private readonly IUnitOfWork      _uow;
+    private readonly IUnitOfWork _uow;
 
     public RegisterGuestHandler(IGuestRepository repo, IUnitOfWork uow)
     {
         _repo = repo;
-        _uow  = uow;
+        _uow = uow;
     }
 
     public async Task<Results> HandleAsync(RegisterGuestCommand cmd)

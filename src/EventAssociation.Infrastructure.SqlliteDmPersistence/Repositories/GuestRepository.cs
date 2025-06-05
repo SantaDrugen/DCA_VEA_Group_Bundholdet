@@ -1,6 +1,6 @@
 ﻿using EventAssociation.Core.Domain.Aggregates.Guest;
 using EventAssociation.Core.Domain.Common.Values.Guest;
-using EventAssociation.Core.Domain.RepositoryInterfaces;
+using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 using EventAssociation.Infrastructure.SqlliteDmPersistence.Context;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using QueryContracts.Contracts;
 
-namespace QueryContracts.Dispatch
+namespace EfcQueries.Dispatch
 {
     public class QueryDispatcher(IServiceProvider serviceProvider) : IQueryDispatcher
     {

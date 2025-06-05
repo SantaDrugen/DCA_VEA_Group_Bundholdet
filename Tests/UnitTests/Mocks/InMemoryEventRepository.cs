@@ -4,7 +4,7 @@ using EventAssociation.Core.Domain.Common.Values.Event;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Tests.Infrastructure.Repositories
+namespace UnitTests.Mocks
 {
     public class InMemoryEventRepository : IEventRepository
     {

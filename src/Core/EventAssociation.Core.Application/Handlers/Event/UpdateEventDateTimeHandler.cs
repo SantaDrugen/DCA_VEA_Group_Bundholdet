@@ -1,27 +1,28 @@
 ﻿using EventAssociation.Core.Application.Commands.Event;
+using EventAssociation.Core.Application.Handlers;
 using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Features.Event
+namespace EventAssociation.Core.Application.Handlers.Event
 {
-    public class UpdateEventDescriptionHandler : ICommandHandler<UpdateEventDescriptionCommand>
+    public class UpdateEventDateTimeHandler : ICommandHandler<UpdateEventDateTimeCommand>
     {
         private readonly IEventRepository eventRepo;
         private readonly IUnitOfWork uow;
 
-        public UpdateEventDescriptionHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        public UpdateEventDateTimeHandler(IEventRepository eventRepo, IUnitOfWork uow)
         {
             this.eventRepo = eventRepo;
             this.uow = uow;
         }
 
-        public async Task<Results> HandleAsync(UpdateEventDescriptionCommand command)
+        public async Task<Results> HandleAsync(UpdateEventDateTimeCommand command)
         {
             List<Error> errors = new List<Error>();
 
-            var getResult = await eventRepo.GetAsync(command.id);
+            Results<VeaEvent> getResult = await eventRepo.GetAsync(command.id);
 
             if (getResult.IsFailure)
                 errors.AddRange(getResult.Errors);
@@ -30,7 +31,7 @@ namespace EventAssociation.Core.Application.Features.Event
 
             if (eventEntity is not null)
             {
-                var updateResult = eventEntity.SetDescription(command.newDescription.Value);
+                var updateResult = eventEntity.SetDateTime(command.newDateTime);
 
                 if (updateResult.IsFailure)
                     errors.AddRange(updateResult.Errors);

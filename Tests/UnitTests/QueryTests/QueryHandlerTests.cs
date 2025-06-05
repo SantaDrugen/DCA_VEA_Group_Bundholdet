@@ -1,17 +1,13 @@
 ﻿using System.Text.Json;
+using EfcQueries.Models;
 using EfcQueries.Queries;
 using EfcQueries.QueryHandlers;
-using EventAssociation.Infrastructure.SqlliteDmPersistence.Context;
-using EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
 using Microsoft.EntityFrameworkCore;
-using QueryContracts.Queries;
 
 namespace UnitTests.QueryTests
 {
     public class QueryHandlerTests : IDisposable
     {
-
-        public readonly VeaDbContext _writeContext;
         public readonly VeadatabaseProductionContext _readContext;
 
         public readonly GetEventDetailsQueryHandler _getEventDetailsQueryHandler;
@@ -22,7 +18,6 @@ namespace UnitTests.QueryTests
         public QueryHandlerTests()
         {
             TestContextFactory.OpenInMemoryConnection();
-            _writeContext = TestContextFactory.CreateWriteContext();
             _readContext = TestContextFactory.CreateReadContext();
             SeedJsonDataInto(_readContext);
 
@@ -118,7 +113,6 @@ namespace UnitTests.QueryTests
 
         public void Dispose()
         {
-            _writeContext.Dispose();
             _readContext.Dispose();
             TestContextFactory.CloseInMemoryConnection();
         }

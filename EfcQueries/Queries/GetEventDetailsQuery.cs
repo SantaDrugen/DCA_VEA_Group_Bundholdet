@@ -1,7 +1,7 @@
 ﻿using QueryContracts.Contracts;
 using QueryContracts.DTOs;
 
-namespace QueryContracts.Queries
+namespace EfcQueries.Queries
 {
     public record GetEventDetailsQuery
     (

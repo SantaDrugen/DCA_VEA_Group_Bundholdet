@@ -1,23 +1,24 @@
 ﻿using EventAssociation.Core.Application.Commands.Event;
+using EventAssociation.Core.Application.Handlers;
 using EventAssociation.Core.Domain.Aggregates.Event;
 using EventAssociation.Core.Domain.Common;
 using EventAssociation.Core.Domain.ReositoryInterfaces;
 using EventAssociation.Core.Tools.OperationResult;
 
-namespace EventAssociation.Core.Application.Features.Event
+namespace EventAssociation.Core.Application.Handlers.Event
 {
-    public class SetEventStatusActiveHandler : ICommandHandler<SetEventStatusActiveCommand>
+    public class SetEventMaxNumberOfGuestsHandler : ICommandHandler<SetEventMaxNumberOfGuestsCommand>
     {
         private readonly IEventRepository eventRepo;
         private readonly IUnitOfWork uow;
 
-        public SetEventStatusActiveHandler(IEventRepository eventRepo, IUnitOfWork uow)
+        public SetEventMaxNumberOfGuestsHandler(IEventRepository eventRepository, IUnitOfWork unitOfWork)
         {
-            this.eventRepo = eventRepo;
-            this.uow = uow;
+            eventRepo = eventRepository;
+            uow = unitOfWork;
         }
 
-        public async Task<Results> HandleAsync(SetEventStatusActiveCommand command)
+        public async Task<Results> HandleAsync(SetEventMaxNumberOfGuestsCommand command)
         {
             List<Error> errors = new List<Error>();
 
@@ -26,23 +27,23 @@ namespace EventAssociation.Core.Application.Features.Event
             if (eventResult.IsFailure)
                 errors.AddRange(eventResult.Errors);
 
-            var eventEntity = eventResult.Value;
+            VeaEvent eventEntity = eventResult.Value;
 
             if (eventEntity is not null)
             {
-                var updateResult = eventEntity.SetActive();
+                var updateResult = eventEntity.SetMaxGuests(command.MaxNumberOfGuests.Value);
 
                 if (updateResult.IsFailure)
                     errors.AddRange(updateResult.Errors);
 
-                var saveResult = await uow.SaveChangesAsync();
+                Results saveResult = await uow.SaveChangesAsync();
 
                 if (saveResult.IsFailure)
                     errors.AddRange(saveResult.Errors);
             }
 
             if (errors.Any())
-                return Results.Failure(errors.ToArray());
+                return Results.Failure(errors);
 
             var updatedEventResult = Results<VeaEvent>.Success(eventEntity);
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
+namespace EfcQueries.Models;
 
 public partial class VeaGuest
 {

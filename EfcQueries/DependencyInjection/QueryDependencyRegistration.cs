@@ -1,9 +1,9 @@
-﻿using EventAssociation.Infrastructure.SqlliteDmPersistence.Models;
+﻿using EfcQueries.Dispatch;
+using EfcQueries.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QueryContracts.Contracts;
-using QueryContracts.Dispatch;
 
 namespace EfcQueries.DependencyInjection
 {
